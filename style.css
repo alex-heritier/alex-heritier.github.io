@@ -1,0 +1,269 @@
+/* style.css - intentionally loud & busy like popular Chinese portals */
+
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700&family=Roboto:wght@300;900&display=swap');
+
+:root {
+  --primary: #ff0000;
+  --secondary: #ffe600;
+  --accent: #0099ff;
+  --bg-light: #fdfdfd;
+  --text-dark: #000;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Noto Sans', 'Roboto', sans-serif;
+  background: var(--bg-light);
+  color: var(--text-dark);
+  line-height: 1.3;
+}
+
+.banner-ad {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.top-banner {
+  position: sticky;
+  top: 0;
+  background: var(--secondary);
+  border-bottom: 3px solid var(--primary);
+}
+
+.bottom-banner {
+  position: fixed;
+  bottom: 0;
+  background: var(--accent);
+  border-top: 3px solid var(--primary);
+}
+
+header {
+  padding: 10px;
+  text-align: center;
+  background: linear-gradient(90deg, var(--primary), var(--accent));
+  color: #fff;
+}
+
+header h1 {
+  font-size: 2rem;
+  margin-bottom: 5px;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+}
+
+nav a {
+  color: #fff;
+  font-weight: 700;
+  margin: 0 8px;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+nav a:hover {
+  color: var(--secondary);
+}
+
+.ticker {
+  width: 100%;
+  background: var(--secondary);
+  color: var(--primary);
+  font-weight: 900;
+  padding: 8px;
+  overflow: hidden;
+  white-space: nowrap;
+  border-top: 3px solid var(--primary);
+  border-bottom: 3px solid var(--primary);
+}
+
+/* Blink animation */
+.blinker {
+  animation: blink 1s step-start 0s infinite;
+}
+
+@keyframes blink {
+  50% { opacity: 0; }
+}
+
+.layout {
+  display: flex;
+  max-width: 1400px;
+  margin: 10px auto 100px; /* bottom margin accounts for bottom banner */
+}
+
+.sidebar {
+  width: 170px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.sidebar img {
+  width: 160px;
+  height: 600px;
+  object-fit: cover;
+  border: 3px solid var(--primary);
+  box-shadow: 0 0 10px rgba(0,0,0,0.5);
+}
+
+.margin-top {
+  margin-top: 20px;
+}
+
+main {
+  flex: 1;
+  padding: 0 15px;
+}
+
+.job-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.job {
+  border: 3px solid var(--accent);
+  padding: 15px;
+  background: #fffced;
+  box-shadow: 0 0 5px rgba(0,0,0,0.2);
+  position: relative;
+}
+
+.job h2 {
+  font-size: 1.3rem;
+  color: var(--primary);
+  margin-bottom: 5px;
+}
+
+.badge {
+  background: var(--secondary);
+  color: #000;
+  padding: 2px 6px;
+  margin-left: 4px;
+  font-weight: 900;
+  border: 2px solid var(--primary);
+  border-radius: 3px;
+}
+
+.badge.hot {
+  animation: blink 0.8s step-start infinite;
+}
+
+.badge.new {
+  background: var(--accent);
+  color: #fff;
+}
+
+.job ul {
+  margin-left: 18px;
+  font-size: 0.9rem;
+  list-style: square;
+}
+
+.apply-btn {
+  display: inline-block;
+  margin-top: 8px;
+  background: var(--primary);
+  color: #fff;
+  padding: 6px 12px;
+  font-weight: 700;
+  text-decoration: none;
+  border-radius: 4px;
+  transition: transform 0.1s;
+}
+
+.apply-btn:hover {
+  transform: scale(1.05);
+}
+
+/* Pop-up modal styles */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+}
+
+.modal.hidden {
+  display: none;
+}
+
+.modal-content {
+  background: #fff;
+  padding: 25px 35px;
+  border: 5px solid var(--secondary);
+  text-align: center;
+  max-width: 400px;
+  width: 90%;
+  position: relative;
+  animation: pop 0.3s ease-out;
+}
+
+@keyframes pop {
+  from {
+    transform: scale(0.5);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.close {
+  position: absolute;
+  top: 8px;
+  right: 12px;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: var(--primary);
+}
+
+.subscribe-btn {
+  margin-top: 12px;
+  background: var(--accent);
+  color: #fff;
+  padding: 8px 18px;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.subscribe-btn:hover {
+  background: var(--primary);
+}
+
+/* Responsive tweaks */
+@media (max-width: 992px) {
+  .sidebar {
+    display: none;
+  }
+  .layout {
+    margin: 10px;
+  }
+}
+
+@media (max-width: 576px) {
+  header h1 {
+    font-size: 1.4rem;
+  }
+  nav a {
+    display: inline-block;
+    margin: 4px 3px;
+    font-size: 0.8rem;
+  }
+  .ticker {
+    font-size: 0.75rem;
+  }
+}
