@@ -8,7 +8,13 @@
 </head>
 <body>
   <header class="site-header">
-    <h1>HCMC Developer Jobs</h1>
+    <div class="header-row">
+      <h1>HCMC Developer Jobs</h1>
+      <div class="search-bar">
+        <input type="text" placeholder="Search jobs, companies, keywords...">
+        <button>Search</button>
+      </div>
+    </div>
     <nav>
       <a href="index.html">Home</a>
       <a href="#jobs">Jobs</a>
@@ -17,6 +23,15 @@
       <a href="#events">Events</a>
       <a href="#blog">Blog</a>
     </nav>
+    <!-- Quick links -->
+    <div class="quick-links">
+      <a href="#">Frontend</a>
+      <a href="#">Backend</a>
+      <a href="#">Mobile</a>
+      <a href="#">AI / ML</a>
+      <a href="#">DevOps</a>
+      <a href="#">Blockchain</a>
+    </div>
   </header>
 
   <div class="info-bar">
@@ -26,7 +41,7 @@
   <div class="layout">
     <!-- Main job listings -->
     <main class="jobs" id="jobs">
-      <h2>Latest Job Listings</h2>
+      <h2>Latest Job Listings <span class="count-badge">127</span></h2>
       <section class="job-list">
         <article class="job">
           <h3>Full-Stack JavaScript Developer <span class="badge hot">HOT</span></h3>
@@ -76,7 +91,7 @@
 
     <!-- Top Developers -->
     <aside class="devs" id="top-devs">
-      <h2>Top Developers</h2>
+      <h2>Top Developers <span class="count-badge">58</span></h2>
       <div class="dev-grid">
         <div class="dev-card">
           <img src="https://via.placeholder.com/80" alt="Avatar" class="avatar">
@@ -113,6 +128,14 @@
             <p class="tags">Python • TensorFlow • GCP</p>
           </div>
         </div>
+      </div>
+
+      <!-- News Feed -->
+      <div class="news-feed">
+        <h2>Industry News</h2>
+        <div class="news-item"><span>VNG announces new data center in HCMC</span><span class="date">Jul 12</span></div>
+        <div class="news-item"><span>Vietnam IT salaries surge 12% YoY</span><span class="date">Jul 10</span></div>
+        <div class="news-item"><span>FlutterConf Asia 2024 set for Sept</span><span class="date">Jul 08</span></div>
       </div>
     </aside>
   </div>
