@@ -289,18 +289,33 @@ main {
 }
 
 .dex-card__header {
-  display: grid;
-  grid-template-columns: auto 1fr;
-  gap: 6px 16px;
-  align-items: baseline;
-  margin-bottom: 12px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 16px;
+  margin-bottom: 16px;
+}
+
+.dex-heading {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex: 1 1 200px;
+  min-width: 0;
+}
+
+.dex-heading-top {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
 }
 
 .dex-number {
   font-family: 'Playfair Display', serif;
   font-size: 0.9rem;
   color: var(--accent-gold);
-  letter-spacing: 0.06rem;
+  letter-spacing: 0.08rem;
 }
 
 .dex-card h2 {
@@ -311,11 +326,37 @@ main {
 }
 
 .dex-role {
-  grid-column: span 2;
-  font-size: 0.8rem;
-  letter-spacing: 0.12rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  font-size: 0.7rem;
+  letter-spacing: 0.14rem;
   text-transform: uppercase;
   color: var(--accent-clay);
+  background: rgba(181, 106, 45, 0.16);
+  border: 1px solid rgba(181, 106, 45, 0.18);
+  padding: 4px 12px;
+  border-radius: 999px;
+  text-align: center;
+}
+
+.dex-avatar {
+  flex: 0 0 auto;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  margin-left: auto;
+  background: radial-gradient(120% 120% at 30% 30%, rgba(200, 154, 59, 0.4), rgba(79, 122, 85, 0.28));
+  border: 1px solid rgba(181, 106, 45, 0.28);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.5);
+}
+
+.dex-avatar svg {
+  width: 44px;
+  height: 44px;
 }
 
 .dex-card__body {
@@ -415,6 +456,33 @@ main {
 
 .site-footer p {
   margin: 6px 0;
+}
+
+@media (max-width: 580px) {
+  .dex-avatar {
+    width: 56px;
+    height: 56px;
+  }
+
+  .dex-avatar svg {
+    width: 36px;
+    height: 36px;
+  }
+}
+
+@media (max-width: 480px) {
+  .dex-card__header {
+    gap: 10px;
+  }
+
+  .dex-heading-top {
+    gap: 6px;
+  }
+
+  .dex-avatar {
+    width: 52px;
+    height: 52px;
+  }
 }
 
 @media (max-width: 960px) {
