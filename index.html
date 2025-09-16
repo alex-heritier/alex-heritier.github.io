@@ -1,23 +1,433 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8" />
-	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<title>Project Portfolio</title>
-	<style>
-		body { font-family: Arial, sans-serif; max-width: 600px; margin: 40px auto; line-height: 1.6; }
-		h1 { text-align: center; }
-		ul { list-style: none; padding: 0; }
-		li { margin: 12px 0; }
-		a { text-decoration: none; color: #0066cc; }
-		a:hover { text-decoration: underline; }
-	</style>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Project Portfolio</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+        <style>
+                :root {
+                        color-scheme: dark;
+                }
+
+                * {
+                        box-sizing: border-box;
+                }
+
+                body {
+                        margin: 0;
+                        font-family: "Space Mono", "Courier New", monospace;
+                        background-color: #070214;
+                        background-image: radial-gradient(circle at 20% 20%, rgba(255, 102, 196, 0.12) 0, transparent 55%),
+                                radial-gradient(circle at 80% 10%, rgba(64, 224, 208, 0.15) 0, transparent 55%),
+                                linear-gradient(135deg, #030109 0%, #10123a 48%, #030109 100%);
+                        color: #e6f3ff;
+                        min-height: 100vh;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        padding: 80px 20px;
+                        position: relative;
+                        overflow: hidden;
+                        text-shadow: 0 0 6px rgba(0, 255, 255, 0.2);
+                }
+
+                body::before {
+                        content: "";
+                        position: fixed;
+                        inset: 0;
+                        background-image: linear-gradient(90deg, rgba(57, 255, 20, 0.08) 1px, transparent 1px),
+                                linear-gradient(0deg, rgba(57, 255, 20, 0.08) 1px, transparent 1px);
+                        background-size: 46px 46px;
+                        opacity: 0.45;
+                        pointer-events: none;
+                }
+
+                body::after {
+                        content: "";
+                        position: fixed;
+                        inset: 0;
+                        background: repeating-linear-gradient(
+                                0deg,
+                                rgba(255, 255, 255, 0.03) 0,
+                                rgba(255, 255, 255, 0.03) 1px,
+                                transparent 1px,
+                                transparent 3px
+                        );
+                        mix-blend-mode: screen;
+                        opacity: 0.35;
+                        pointer-events: none;
+                }
+
+                .crt-frame {
+                        position: relative;
+                        max-width: 760px;
+                        width: 100%;
+                        padding: 48px 44px 40px;
+                        border: 4px solid #39ff14;
+                        border-radius: 12px;
+                        background: rgba(8, 14, 36, 0.92);
+                        box-shadow: 0 0 28px rgba(57, 255, 20, 0.48), 0 0 90px rgba(0, 255, 255, 0.3);
+                        overflow: hidden;
+                }
+
+                .crt-frame::before {
+                        content: "";
+                        position: absolute;
+                        inset: 0;
+                        background: linear-gradient(
+                                        130deg,
+                                        rgba(57, 255, 20, 0.08),
+                                        rgba(255, 110, 199, 0.08) 60%,
+                                        rgba(64, 224, 208, 0.12)
+                                ),
+                                radial-gradient(circle at center, rgba(255, 255, 255, 0.05), transparent 65%);
+                        opacity: 0.8;
+                        pointer-events: none;
+                }
+
+                .crt-frame::after {
+                        content: "";
+                        position: absolute;
+                        inset: 0;
+                        background: linear-gradient(180deg, rgba(255, 255, 255, 0.1) 0%, transparent 35%, transparent 65%, rgba(255, 255, 255, 0.1) 100%);
+                        mix-blend-mode: soft-light;
+                        animation: scan 6s linear infinite;
+                        opacity: 0.2;
+                        pointer-events: none;
+                }
+
+                @keyframes scan {
+                        0% {
+                                transform: translateY(-100%);
+                        }
+                        100% {
+                                transform: translateY(100%);
+                        }
+                }
+
+                .crt-frame > * {
+                        position: relative;
+                        z-index: 2;
+                }
+
+                .frame-corner {
+                        position: absolute;
+                        width: 54px;
+                        height: 54px;
+                        border: 2px solid #39ff14;
+                        opacity: 0.85;
+                        pointer-events: none;
+                        z-index: 3;
+                }
+
+                .corner-tl {
+                        top: 18px;
+                        left: 18px;
+                        border-right: none;
+                        border-bottom: none;
+                }
+
+                .corner-tr {
+                        top: 18px;
+                        right: 18px;
+                        border-left: none;
+                        border-bottom: none;
+                }
+
+                .corner-bl {
+                        bottom: 18px;
+                        left: 18px;
+                        border-right: none;
+                        border-top: none;
+                }
+
+                .corner-br {
+                        bottom: 18px;
+                        right: 18px;
+                        border-left: none;
+                        border-top: none;
+                }
+
+                header {
+                        text-align: center;
+                        margin-bottom: 32px;
+                }
+
+                .eyebrow {
+                        margin: 0 0 18px;
+                        font-size: 0.7rem;
+                        letter-spacing: 0.35em;
+                        text-transform: uppercase;
+                        color: #39ff14;
+                }
+
+                h1 {
+                        margin: 0;
+                        font-family: "Press Start 2P", cursive;
+                        font-size: clamp(1.9rem, 4.5vw, 2.6rem);
+                        letter-spacing: 0.14em;
+                        text-transform: uppercase;
+                        color: #fdfdfd;
+                        text-shadow: 0 0 14px rgba(57, 255, 20, 0.65), 0 0 24px rgba(0, 255, 255, 0.4);
+                }
+
+                .tagline {
+                        margin: 20px auto 0;
+                        max-width: 520px;
+                        font-size: 0.9rem;
+                        letter-spacing: 0.18em;
+                        text-transform: uppercase;
+                        color: #9ad7ff;
+                }
+
+                .retro-divider {
+                        position: relative;
+                        height: 4px;
+                        margin: 28px auto 0;
+                        max-width: 360px;
+                        background: repeating-linear-gradient(90deg, #39ff14 0 16px, #ff6ec7 16px 32px, #4af6f0 32px 48px);
+                        box-shadow: 0 0 12px rgba(57, 255, 20, 0.4), 0 0 18px rgba(255, 110, 199, 0.35);
+                        overflow: hidden;
+                }
+
+                .retro-divider::after {
+                        content: "";
+                        position: absolute;
+                        inset: 0;
+                        width: 22%;
+                        min-width: 80px;
+                        background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.75) 50%, transparent 100%);
+                        mix-blend-mode: screen;
+                        animation: sweep 3.6s cubic-bezier(0.65, 0, 0.35, 1) infinite;
+                        opacity: 0.9;
+                }
+
+                main {
+                        display: flex;
+                        flex-direction: column;
+                        gap: 28px;
+                }
+
+                .project-section h2 {
+                        margin: 0 0 24px;
+                        font-family: "Press Start 2P", cursive;
+                        font-size: 1.15rem;
+                        letter-spacing: 0.3em;
+                        text-transform: uppercase;
+                        text-align: center;
+                }
+
+                .project-grid {
+                        list-style: none;
+                        margin: 0;
+                        padding: 0;
+                        display: grid;
+                        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+                        gap: 28px;
+                }
+
+                .project-card {
+                        position: relative;
+                        display: flex;
+                        flex-direction: column;
+                        gap: 18px;
+                        padding: 28px 24px 24px;
+                        background: linear-gradient(140deg, rgba(18, 34, 82, 0.95) 0%, rgba(60, 16, 88, 0.9) 100%);
+                        border: 2px solid #ff6ec7;
+                        border-radius: 14px;
+                        color: #f7fbff;
+                        text-decoration: none;
+                        box-shadow: 0 14px 36px rgba(0, 0, 0, 0.55);
+                        overflow: hidden;
+                        transition: transform 0.4s ease, box-shadow 0.4s ease;
+                }
+
+                .project-card::before {
+                        content: "";
+                        position: absolute;
+                        width: 260px;
+                        height: 260px;
+                        top: -140px;
+                        left: -140px;
+                        background: radial-gradient(circle at center, rgba(255, 246, 164, 0.55), transparent 70%);
+                        transform: rotate(25deg);
+                        opacity: 0;
+                        transition: opacity 0.5s ease;
+                        pointer-events: none;
+                }
+
+                .project-card::after {
+                        content: "";
+                        position: absolute;
+                        inset: 0;
+                        background: linear-gradient(120deg, rgba(255, 110, 199, 0.2), transparent 60%, rgba(74, 246, 240, 0.2));
+                        opacity: 0;
+                        transition: opacity 0.4s ease;
+                        pointer-events: none;
+                }
+
+                .project-card:hover {
+                        transform: translateY(-10px) scale(1.01);
+                        box-shadow: 0 24px 48px rgba(0, 0, 0, 0.65);
+                }
+
+                .project-card:hover::before,
+                .project-card:hover::after {
+                        opacity: 1;
+                }
+
+                .project-title {
+                        font-family: "Press Start 2P", cursive;
+                        font-size: 1rem;
+                        letter-spacing: 0.1em;
+                        line-height: 1.6;
+                        text-transform: uppercase;
+                        text-shadow: 0 0 12px rgba(255, 246, 164, 0.4);
+                }
+
+                .project-subtitle {
+                        font-size: 0.92rem;
+                        letter-spacing: 0.16em;
+                        text-transform: uppercase;
+                        color: #c4d3ff;
+                }
+
+                .project-cta {
+                        align-self: flex-end;
+                        padding: 0.55rem 1.1rem;
+                        border-radius: 6px;
+                        background: #39ff14;
+                        color: #07142d;
+                        font-family: "Press Start 2P", cursive;
+                        font-size: 0.62rem;
+                        letter-spacing: 0.28em;
+                        text-transform: uppercase;
+                        box-shadow: 3px 3px 0 #000;
+                        display: inline-flex;
+                        align-items: center;
+                        gap: 0.5rem;
+                        transition: background 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+                }
+
+                .project-card:hover .project-cta {
+                        background: #ff6ec7;
+                        color: #2b0035;
+                        box-shadow: 0 0 16px rgba(255, 110, 199, 0.8);
+                }
+
+                .project-cta::after {
+                        content: "»";
+                        font-size: 0.9rem;
+                        letter-spacing: normal;
+                        transform: translateY(-1px);
+                }
+
+                footer {
+                        margin-top: 46px;
+                        text-align: center;
+                        font-size: 0.75rem;
+                        letter-spacing: 0.35em;
+                        text-transform: uppercase;
+                        color: #56ffe4;
+                }
+
+                @media (max-width: 720px) {
+                        body {
+                                padding: 64px 16px;
+                        }
+
+                        .crt-frame {
+                                padding: 40px 30px 34px;
+                        }
+
+                        .project-grid {
+                                gap: 22px;
+                        }
+                }
+
+                @media (max-width: 520px) {
+                        h1 {
+                                font-size: clamp(1.6rem, 8vw, 1.9rem);
+                                letter-spacing: 0.1em;
+                        }
+
+                        .tagline {
+                                letter-spacing: 0.12em;
+                                font-size: 0.82rem;
+                        }
+
+                        .project-title {
+                                font-size: 0.9rem;
+                        }
+
+                        .project-subtitle {
+                                font-size: 0.82rem;
+                        }
+
+                        .project-cta {
+                                font-size: 0.58rem;
+                        }
+
+                        footer {
+                                font-size: 0.7rem;
+                                letter-spacing: 0.28em;
+                        }
+                }
+
+                @media (prefers-reduced-motion: reduce) {
+                        *,
+                        *::before,
+                        *::after {
+                                animation-duration: 0.001ms !important;
+                                animation-iteration-count: 1 !important;
+                                transition-duration: 0.001ms !important;
+                                scroll-behavior: auto !important;
+                        }
+                }
+
+                @keyframes sweep {
+                        0% {
+                                transform: translateX(-120%);
+                        }
+                        100% {
+                                transform: translateX(120%);
+                        }
+                }
+        </style>
 </head>
 <body>
-	<h1>My Projects</h1>
-	<ul>
-		<li><a href="hcmc-job-board.html">Ho Chi Minh City Dev Job Board — noisy Chinese-style UI</a></li>
-	</ul>
+        <div class="crt-frame">
+                <span aria-hidden="true" class="frame-corner corner-tl"></span>
+                <span aria-hidden="true" class="frame-corner corner-tr"></span>
+                <span aria-hidden="true" class="frame-corner corner-bl"></span>
+                <span aria-hidden="true" class="frame-corner corner-br"></span>
+                <header>
+                        <p class="eyebrow">SYSTEM ONLINE // WELCOME, TRAVELER</p>
+                        <h1>Alex Heritier</h1>
+                        <p class="tagline">Project archives preserved in glorious neon 90s futurism</p>
+                        <div class="retro-divider" role="presentation"></div>
+                </header>
+                <main>
+                        <section class="project-section">
+                                <h2>Active Experiments</h2>
+                                <ul class="project-grid">
+                                        <li>
+                                                <a class="project-card" href="hcmc-job-board.html">
+                                                        <span class="project-title">Ho Chi Minh City Dev Job Board</span>
+                                                        <span class="project-subtitle">Noisy Chinese-style interface study</span>
+                                                        <span class="project-cta">Enter Site</span>
+                                                </a>
+                                        </li>
+                                </ul>
+                        </section>
+                </main>
+                <footer>
+                        <p>© 1996–2024 &nbsp; Alex Heritier // Crafted with dial-up energy.</p>
+                </footer>
+        </div>
 </body>
 </html>
