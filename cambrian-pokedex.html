@@ -4,22 +4,22 @@
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Cambrian Lifeform Dex</title>
+  <title>Cambrian Safari Field Guide</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Work+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="cambrian-pokedex.css" />
 </head>
 <body>
   <header class="site-header">
     <div class="site-header__inner">
       <div class="logo-cluster">
-        <span class="dex-label">EraDex</span>
-        <h1 class="site-title">Cambrian Explosion Field Guide</h1>
+        <span class="dex-label">Field Journal</span>
+        <h1 class="site-title">Cambrian Safari Field Guide</h1>
       </div>
       <nav class="site-nav">
         <a href="index.html">Back to Portfolio</a>
-        <a class="nav-highlight" href="#dex">Browse Entries</a>
+        <a class="nav-highlight" href="#dex">Creature Log</a>
         <a href="#about">About the Era</a>
       </nav>
     </div>
@@ -28,33 +28,33 @@
   <main>
     <section class="intro" id="about">
       <div class="intro__content">
-        <h2>Welcome, Field Researcher!</h2>
+        <h2>Welcome, Expedition Leader!</h2>
         <p>
-          This pocket database captures the dazzling diversity of the Cambrian explosion
-          (≈541&ndash;485 million years ago). Use the controls to search, filter, and compare
-          the earliest complex animals that cruised ancient seas.
+          Pack your field lenses and wade into Cambrian seas alive with experimental wildlife.
+          This safari log charts the explosion of early animal life (≈541&ndash;485 million years ago).
+          Use the filters to scout predators, grazers, and marvels from every habitat zone.
         </p>
       </div>
       <div class="intro__metrics">
         <div class="metric">
-          <span class="metric__label">Documented taxa</span>
+          <span class="metric__label">Species logged</span>
           <span class="metric__value">10</span>
         </div>
         <div class="metric">
-          <span class="metric__label">Habitats logged</span>
+          <span class="metric__label">Habitats scouted</span>
           <span class="metric__value">5</span>
         </div>
         <div class="metric">
-          <span class="metric__label">Top predators</span>
+          <span class="metric__label">Apex hunters</span>
           <span class="metric__value">3</span>
         </div>
       </div>
     </section>
 
-    <section class="controls" aria-label="Dex filters">
+    <section class="controls" aria-label="Safari filters">
       <div class="control-group">
         <label for="dex-search">Search</label>
-        <input type="search" id="dex-search" placeholder="Name, ability, or trait" />
+        <input type="search" id="dex-search" placeholder="Name, adaptation, or trait" />
       </div>
       <div class="control-group">
         <label for="diet-filter">Feeding style</label>
@@ -87,7 +87,7 @@
           <option value="small">Small (&lt;10 cm)</option>
         </select>
       </div>
-      <button class="control-reset" type="button" id="reset-filters">Reset Filters</button>
+      <button class="control-reset" type="button" id="reset-filters">Reset filters</button>
     </section>
 
     <section class="pokedex" id="dex" aria-live="polite">
@@ -382,7 +382,7 @@
           </div>
         </article>
       </div>
-      <p class="empty-state" hidden>No Cambrian creatures match those filters. Adjust the search to rediscover them.</p>
+      <p class="empty-state" hidden>No sightings match those filters. Adjust the search to rediscover them.</p>
     </section>
   </main>
 
