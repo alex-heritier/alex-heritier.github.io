@@ -490,6 +490,322 @@ main {
   box-shadow: 0 5px 25px var(--neon-green);
 }
 
+/* HCMC City Section */
+.hcmc-city-section {
+  background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%);
+  padding: 40px 20px;
+  margin: 20px 0;
+  position: relative;
+  overflow: hidden;
+  border-top: 3px solid var(--neon-pink);
+  border-bottom: 3px solid var(--neon-cyan);
+}
+
+.city-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  gap: 40px;
+  align-items: center;
+  position: relative;
+  z-index: 2;
+}
+
+.city-text {
+  flex: 1;
+  padding-right: 20px;
+}
+
+.city-text h2 {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 2.2rem;
+  font-weight: 900;
+  margin-bottom: 20px;
+  background: linear-gradient(45deg, var(--neon-pink), var(--neon-purple), var(--neon-cyan));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: 0 0 20px var(--neon-pink);
+}
+
+.city-text p {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  margin-bottom: 15px;
+  color: var(--text-primary);
+  text-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
+}
+
+.city-stats {
+  display: flex;
+  gap: 30px;
+  margin-top: 25px;
+}
+
+.stat {
+  text-align: center;
+  padding: 15px;
+  background: rgba(255, 0, 110, 0.1);
+  border: 2px solid var(--neon-pink);
+  border-radius: 15px;
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+}
+
+.stat:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px var(--neon-pink);
+  border-color: var(--neon-green);
+}
+
+.stat-number {
+  display: block;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1.8rem;
+  font-weight: 900;
+  color: var(--neon-green);
+  text-shadow: 0 0 10px var(--neon-green);
+}
+
+.stat-label {
+  display: block;
+  font-size: 0.9rem;
+  color: var(--neon-cyan);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-top: 5px;
+}
+
+.city-graphics {
+  flex: 1;
+  height: 400px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Cyberpunk Sun */
+.cyberpunk-sun {
+  position: absolute;
+  top: 20px;
+  right: 50px;
+  width: 120px;
+  height: 120px;
+  background: radial-gradient(circle, var(--neon-orange) 0%, var(--neon-pink) 30%, var(--neon-purple) 60%, transparent 70%);
+  border-radius: 50%;
+  box-shadow: 
+    0 0 30px var(--neon-orange),
+    0 0 60px var(--neon-pink),
+    0 0 90px var(--neon-purple);
+  animation: sun-pulse 3s ease-in-out infinite alternate;
+  z-index: 3;
+}
+
+.cyberpunk-sun::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--neon-cyan);
+  transform: translateY(-50%);
+  box-shadow: 
+    0 20px 0 var(--neon-cyan),
+    0 40px 0 var(--neon-cyan),
+    0 -20px 0 var(--neon-cyan),
+    0 -40px 0 var(--neon-cyan);
+}
+
+.cyberpunk-sun::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  bottom: 0;
+  width: 2px;
+  background: var(--neon-cyan);
+  transform: translateX(-50%);
+  box-shadow: 
+    20px 0 0 var(--neon-cyan),
+    40px 0 0 var(--neon-cyan),
+    -20px 0 0 var(--neon-cyan),
+    -40px 0 0 var(--neon-cyan);
+}
+
+@keyframes sun-pulse {
+  from { 
+    transform: scale(1);
+    box-shadow: 
+      0 0 30px var(--neon-orange),
+      0 0 60px var(--neon-pink),
+      0 0 90px var(--neon-purple);
+  }
+  to { 
+    transform: scale(1.1);
+    box-shadow: 
+      0 0 40px var(--neon-orange),
+      0 0 80px var(--neon-pink),
+      0 0 120px var(--neon-purple);
+  }
+}
+
+/* Bitexco Building */
+.bitexco-building {
+  position: absolute;
+  bottom: 0;
+  right: 30px;
+  width: 60px;
+  height: 280px;
+  background: linear-gradient(180deg, 
+    var(--neon-cyan) 0%,
+    var(--neon-purple) 20%,
+    var(--neon-pink) 40%,
+    var(--neon-orange) 60%,
+    var(--neon-yellow) 80%,
+    var(--neon-green) 100%
+  );
+  border-radius: 5px 5px 0 0;
+  box-shadow: 
+    0 0 20px var(--neon-cyan),
+    inset 0 0 20px rgba(255, 255, 255, 0.3);
+  z-index: 2;
+  animation: building-glow 2s ease-in-out infinite alternate;
+}
+
+.bitexco-building::before {
+  content: '';
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 40px;
+  height: 20px;
+  background: var(--neon-green);
+  border-radius: 50%;
+  box-shadow: 0 0 15px var(--neon-green);
+}
+
+.bitexco-building::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  background: repeating-linear-gradient(
+    90deg,
+    transparent 0px,
+    transparent 8px,
+    rgba(255, 255, 255, 0.1) 8px,
+    rgba(255, 255, 255, 0.1) 10px
+  );
+}
+
+@keyframes building-glow {
+  from { box-shadow: 0 0 20px var(--neon-cyan); }
+  to { box-shadow: 0 0 30px var(--neon-cyan), 0 0 50px var(--neon-purple); }
+}
+
+/* Palm Trees */
+.palm-trees {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 200px;
+  z-index: 1;
+}
+
+.palm-tree {
+  position: absolute;
+  bottom: 0;
+  width: 8px;
+  height: 180px;
+  background: linear-gradient(180deg, var(--banh-mi-crust) 0%, var(--coffee-brown) 100%);
+  border-radius: 4px;
+}
+
+.palm-tree.left {
+  left: 50px;
+  animation: palm-sway 4s ease-in-out infinite;
+}
+
+.palm-tree.right {
+  right: 100px;
+  animation: palm-sway 4s ease-in-out infinite 2s;
+}
+
+.palm-tree::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 20px solid transparent;
+  border-right: 20px solid transparent;
+  border-bottom: 40px solid var(--neon-green);
+  filter: drop-shadow(0 0 10px var(--neon-green));
+}
+
+.palm-tree::after {
+  content: '';
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 15px solid transparent;
+  border-right: 15px solid transparent;
+  border-bottom: 30px solid var(--neon-green);
+  filter: drop-shadow(0 0 8px var(--neon-green));
+}
+
+@keyframes palm-sway {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(2deg); }
+  75% { transform: rotate(-2deg); }
+}
+
+/* City Skyline */
+.city-skyline {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100px;
+  background: linear-gradient(180deg, 
+    transparent 0%,
+    rgba(255, 0, 110, 0.1) 20%,
+    rgba(131, 56, 236, 0.2) 40%,
+    rgba(58, 134, 255, 0.3) 60%,
+    rgba(6, 255, 165, 0.2) 80%,
+    rgba(255, 190, 11, 0.1) 100%
+  );
+  z-index: 0;
+}
+
+.city-skyline::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  background: repeating-linear-gradient(
+    90deg,
+    transparent 0px,
+    transparent 15px,
+    var(--neon-cyan) 15px,
+    var(--neon-cyan) 18px
+  );
+  opacity: 0.3;
+}
+
 /* Responsive design */
 @media (max-width: 992px) {
   .sidebar {
@@ -497,6 +813,27 @@ main {
   }
   .layout {
     margin: 20px;
+  }
+  
+  .city-content {
+    flex-direction: column;
+    gap: 30px;
+  }
+  
+  .city-graphics {
+    height: 300px;
+  }
+  
+  .cyberpunk-sun {
+    right: 20px;
+    width: 80px;
+    height: 80px;
+  }
+  
+  .bitexco-building {
+    width: 40px;
+    height: 200px;
+    right: 20px;
   }
 }
 
