@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cambrian Lifeform Dex</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Work+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="cambrian-pokedex.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="site-header__inner">
+      <div class="logo-cluster">
+        <span class="dex-label">EraDex</span>
+        <h1 class="site-title">Cambrian Explosion Field Guide</h1>
+      </div>
+      <nav class="site-nav">
+        <a href="index.html">Back to Portfolio</a>
+        <a class="nav-highlight" href="#dex">Browse Entries</a>
+        <a href="#about">About the Era</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="intro" id="about">
+      <div class="intro__content">
+        <h2>Welcome, Field Researcher!</h2>
+        <p>
+          This pocket database captures the dazzling diversity of the Cambrian explosion
+          (≈541&ndash;485 million years ago). Use the controls to search, filter, and compare
+          the earliest complex animals that cruised ancient seas.
+        </p>
+      </div>
+      <div class="intro__metrics">
+        <div class="metric">
+          <span class="metric__label">Documented taxa</span>
+          <span class="metric__value">10</span>
+        </div>
+        <div class="metric">
+          <span class="metric__label">Habitats logged</span>
+          <span class="metric__value">5</span>
+        </div>
+        <div class="metric">
+          <span class="metric__label">Top predators</span>
+          <span class="metric__value">3</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="controls" aria-label="Dex filters">
+      <div class="control-group">
+        <label for="dex-search">Search</label>
+        <input type="search" id="dex-search" placeholder="Name, ability, or trait" />
+      </div>
+      <div class="control-group">
+        <label for="diet-filter">Feeding style</label>
+        <select id="diet-filter">
+          <option value="all">All</option>
+          <option value="predator">Predator</option>
+          <option value="grazer">Grazer</option>
+          <option value="detritivore">Detritivore</option>
+          <option value="filter-feeder">Filter feeder</option>
+          <option value="omnivore">Omnivore</option>
+        </select>
+      </div>
+      <div class="control-group">
+        <label for="habitat-filter">Habitat zone</label>
+        <select id="habitat-filter">
+          <option value="all">All</option>
+          <option value="pelagic">Pelagic</option>
+          <option value="benthic">Benthic</option>
+          <option value="reef">Reef</option>
+          <option value="slope">Continental slope</option>
+          <option value="open-shelf">Open shelf</option>
+        </select>
+      </div>
+      <div class="control-group">
+        <label for="size-filter">Body size</label>
+        <select id="size-filter">
+          <option value="all">All</option>
+          <option value="large">Large (&gt;50 cm)</option>
+          <option value="medium">Medium (10&ndash;50 cm)</option>
+          <option value="small">Small (&lt;10 cm)</option>
+        </select>
+      </div>
+      <button class="control-reset" type="button" id="reset-filters">Reset Filters</button>
+    </section>
+
+    <section class="pokedex" id="dex" aria-live="polite">
+      <div class="pokedex-grid">
+        <article class="dex-card" data-name="Anomalocaris" data-diet="predator" data-habitat="pelagic" data-size="large">
+          <div class="dex-card__header">
+            <span class="dex-number">#001</span>
+            <h2>Anomalocaris</h2>
+            <span class="dex-role">Apex Hunter</span>
+          </div>
+          <div class="dex-card__body">
+            <figure class="dex-portrait">
+              <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/31/AnomalocarisBW.jpg/320px-AnomalocarisBW.jpg" alt="Reconstruction of Anomalocaris" loading="lazy" />
+            </figure>
+            <p class="dex-description">
+              The undisputed titan of Cambrian seas. Twin graspers snared prey before a
+              circular mouth shredded trilobites with pineapple-slice teeth.
+            </p>
+            <ul class="dex-stats">
+              <li><span>Length</span><span>Up to 1 m</span></li>
+              <li><span>Armor breach</span><span>High</span></li>
+              <li><span>Visual acuity</span><span>12k facets</span></li>
+              <li><span>Swim burst</span><span>22 km/h</span></li>
+            </ul>
+            <p class="dex-ability"><strong>Signature ability:</strong> Raptorial Sweep &mdash; lunges with barbed arms to immobilize prey.</p>
+            <ul class="dex-tags">
+              <li>Pelagic</li>
+              <li>Predator</li>
+              <li>Large</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="dex-card" data-name="Opabinia" data-diet="predator" data-habitat="benthic" data-size="small">
+          <div class="dex-card__header">
+            <span class="dex-number">#002</span>
+            <h2>Opabinia</h2>
+            <span class="dex-role">Tactile Forager</span>
+          </div>
+          <div class="dex-card__body">
+            <figure class="dex-portrait">
+              <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8f/OpabiniaRegalis-NT.jpg/320px-OpabiniaRegalis-NT.jpg" alt="Reconstruction of Opabinia" loading="lazy" />
+            </figure>
+            <p class="dex-description">
+              Five independent eyes sweep the sea floor while a flexible proboscis vacuums
+              soft-bodied prey from burrows and crevices.
+            </p>
+            <ul class="dex-stats">
+              <li><span>Length</span><span>7 cm</span></li>
+              <li><span>Agility</span><span>Medium</span></li>
+              <li><span>Eye count</span><span>5</span></li>
+              <li><span>Grasper reach</span><span>15 cm</span></li>
+            </ul>
+            <p class="dex-ability"><strong>Signature ability:</strong> Periscope Grab &mdash; extends its trunk to snatch hidden morsels.</p>
+            <ul class="dex-tags">
+              <li>Benthic</li>
+              <li>Predator</li>
+              <li>Small</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="dex-card" data-name="Hallucigenia" data-diet="detritivore" data-habitat="benthic" data-size="small">
+          <div class="dex-card__header">
+            <span class="dex-number">#003</span>
+            <h2>Hallucigenia</h2>
+            <span class="dex-role">Spined Wanderer</span>
+          </div>
+          <div class="dex-card__body">
+            <figure class="dex-portrait">
+              <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/HallucigeniaNT.jpg/320px-HallucigeniaNT.jpg" alt="Reconstruction of Hallucigenia" loading="lazy" />
+            </figure>
+            <p class="dex-description">
+              A walking pincushion that tiptoes on soft claws while towering spines ward off
+              would-be attackers seeking an easy snack.
+            </p>
+            <ul class="dex-stats">
+              <li><span>Length</span><span>3.5 cm</span></li>
+              <li><span>Defense</span><span>Extreme</span></li>
+              <li><span>Speed</span><span>Slow</span></li>
+              <li><span>Stability</span><span>Eight limbs</span></li>
+            </ul>
+            <p class="dex-ability"><strong>Signature ability:</strong> Needle Shield &mdash; lashes outward spines to deter predators.</p>
+            <ul class="dex-tags">
+              <li>Benthic</li>
+              <li>Detritivore</li>
+              <li>Small</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="dex-card" data-name="Wiwaxia" data-diet="grazer" data-habitat="benthic" data-size="medium">
+          <div class="dex-card__header">
+            <span class="dex-number">#004</span>
+            <h2>Wiwaxia</h2>
+            <span class="dex-role">Armored Grazer</span>
+          </div>
+          <div class="dex-card__body">
+            <figure class="dex-portrait">
+              <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/22/Wiwaxia_NT_small.jpg/320px-Wiwaxia_NT_small.jpg" alt="Reconstruction of Wiwaxia" loading="lazy" />
+            </figure>
+            <p class="dex-description">
+              Cloaked in overlapping scales and dagger-like spines, Wiwaxia scours microbial
+              mats with twin radulae while shrugging off attacks.
+            </p>
+            <ul class="dex-stats">
+              <li><span>Length</span><span>5 cm</span></li>
+              <li><span>Armor</span><span>Heavy plates</span></li>
+              <li><span>Feeding rate</span><span>High</span></li>
+              <li><span>Threat response</span><span>Spine flare</span></li>
+            </ul>
+            <p class="dex-ability"><strong>Signature ability:</strong> Scale Barricade &mdash; curls into a bristling orb of spines.</p>
+            <ul class="dex-tags">
+              <li>Benthic</li>
+              <li>Grazer</li>
+              <li>Medium</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="dex-card" data-name="Marrella" data-diet="filter-feeder" data-habitat="reef" data-size="small">
+          <div class="dex-card__header">
+            <span class="dex-number">#005</span>
+            <h2>Marrella</h2>
+            <span class="dex-role">Lace Carapace</span>
+          </div>
+          <div class="dex-card__body">
+            <figure class="dex-portrait">
+              <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e9/Marrella_NT.jpg/320px-Marrella_NT.jpg" alt="Reconstruction of Marrella" loading="lazy" />
+            </figure>
+            <p class="dex-description">
+              A delicately spined arthropod that skims plankton from reef currents using
+              feathery limbs and antennae.
+            </p>
+            <ul class="dex-stats">
+              <li><span>Length</span><span>2.5 cm</span></li>
+              <li><span>Swarm behavior</span><span>High</span></li>
+              <li><span>Vision</span><span>Wide angle</span></li>
+              <li><span>Molting cycle</span><span>Frequent</span></li>
+            </ul>
+            <p class="dex-ability"><strong>Signature ability:</strong> Reef Drift &mdash; rides surge pulses to avoid predators.</p>
+            <ul class="dex-tags">
+              <li>Reef</li>
+              <li>Filter feeder</li>
+              <li>Small</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="dex-card" data-name="Pikaia" data-diet="filter-feeder" data-habitat="open-shelf" data-size="small">
+          <div class="dex-card__header">
+            <span class="dex-number">#006</span>
+            <h2>Pikaia</h2>
+            <span class="dex-role">Chordate Pioneer</span>
+          </div>
+          <div class="dex-card__body">
+            <figure class="dex-portrait">
+              <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5b/PikaiaNT.jpg/320px-PikaiaNT.jpg" alt="Reconstruction of Pikaia" loading="lazy" />
+            </figure>
+            <p class="dex-description">
+              One of the first chordates, sporting a notochord and muscle blocks that ripple
+              in coordinated waves for agile swimming.
+            </p>
+            <ul class="dex-stats">
+              <li><span>Length</span><span>5 cm</span></li>
+              <li><span>Locomotion</span><span>Lateral undulation</span></li>
+              <li><span>Respiration</span><span>Body surface</span></li>
+              <li><span>Resilience</span><span>Moderate</span></li>
+            </ul>
+            <p class="dex-ability"><strong>Signature ability:</strong> Notochord Dash &mdash; bursts forward with wave-like contractions.</p>
+            <ul class="dex-tags">
+              <li>Open shelf</li>
+              <li>Filter feeder</li>
+              <li>Small</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="dex-card" data-name="Olenoides" data-diet="detritivore" data-habitat="benthic" data-size="medium">
+          <div class="dex-card__header">
+            <span class="dex-number">#007</span>
+            <h2>Olenoides</h2>
+            <span class="dex-role">Trilobite Vanguard</span>
+          </div>
+          <div class="dex-card__body">
+            <figure class="dex-portrait">
+              <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/eb/Olenoides_sp.jpg/320px-Olenoides_sp.jpg" alt="Fossil of Olenoides trilobite" loading="lazy" />
+            </figure>
+            <p class="dex-description">
+              A versatile trilobite that patrols sediment for carrion and scraps, rolling
+              into an armored pill when danger looms.
+            </p>
+            <ul class="dex-stats">
+              <li><span>Length</span><span>8&ndash;12 cm</span></li>
+              <li><span>Enrollment</span><span>Complete</span></li>
+              <li><span>Antennae</span><span>Highly sensitive</span></li>
+              <li><span>Spines</span><span>Posterior fan</span></li>
+            </ul>
+            <p class="dex-ability"><strong>Signature ability:</strong> Triloshield &mdash; locks into a tight defensive ball.</p>
+            <ul class="dex-tags">
+              <li>Benthic</li>
+              <li>Detritivore</li>
+              <li>Medium</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="dex-card" data-name="Waptia" data-diet="omnivore" data-habitat="pelagic" data-size="small">
+          <div class="dex-card__header">
+            <span class="dex-number">#008</span>
+            <h2>Waptia</h2>
+            <span class="dex-role">Shrimp Sprinter</span>
+          </div>
+          <div class="dex-card__body">
+            <figure class="dex-portrait">
+              <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/06/Waptia_fieldensis.jpg/320px-Waptia_fieldensis.jpg" alt="Fossil of Waptia" loading="lazy" />
+            </figure>
+            <p class="dex-description">
+              A nimble swimmer with fan-like appendages for quick propulsion and delicate
+              limbs for scooping plankton or scavenging.
+            </p>
+            <ul class="dex-stats">
+              <li><span>Length</span><span>4 cm</span></li>
+              <li><span>Brood care</span><span>Egg cluster</span></li>
+              <li><span>Speed</span><span>Fast bursts</span></li>
+              <li><span>Exoskeleton</span><span>Lightweight</span></li>
+            </ul>
+            <p class="dex-ability"><strong>Signature ability:</strong> Jet Flick &mdash; tail-flick launches it away from threats.</p>
+            <ul class="dex-tags">
+              <li>Pelagic</li>
+              <li>Omnivore</li>
+              <li>Small</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="dex-card" data-name="Nectocaris" data-diet="predator" data-habitat="pelagic" data-size="medium">
+          <div class="dex-card__header">
+            <span class="dex-number">#009</span>
+            <h2>Nectocaris</h2>
+            <span class="dex-role">Cephalopod Cousin</span>
+          </div>
+          <div class="dex-card__body">
+            <figure class="dex-portrait">
+              <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/NectocarisNT.jpg/320px-NectocarisNT.jpg" alt="Reconstruction of Nectocaris" loading="lazy" />
+            </figure>
+            <p class="dex-description">
+              A soft-bodied hunter with lateral fins and a siphon that hint at future
+              cephalopods. Twin tentacles snap up prey in open water.
+            </p>
+            <ul class="dex-stats">
+              <li><span>Length</span><span>10 cm</span></li>
+              <li><span>Propulsion</span><span>Jet siphon</span></li>
+              <li><span>Fins</span><span>Stabilizing</span></li>
+              <li><span>Prey capture</span><span>Grasping tentacles</span></li>
+            </ul>
+            <p class="dex-ability"><strong>Signature ability:</strong> Phantom Surge &mdash; pulsed jets let it pivot instantly.</p>
+            <ul class="dex-tags">
+              <li>Pelagic</li>
+              <li>Predator</li>
+              <li>Medium</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="dex-card" data-name="Dinomischus" data-diet="filter-feeder" data-habitat="slope" data-size="medium">
+          <div class="dex-card__header">
+            <span class="dex-number">#010</span>
+            <h2>Dinomischus</h2>
+            <span class="dex-role">Anchored Cup</span>
+          </div>
+          <div class="dex-card__body">
+            <figure class="dex-portrait">
+              <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/Dinomischus_isolated.jpg/320px-Dinomischus_isolated.jpg" alt="Reconstruction of Dinomischus" loading="lazy" />
+            </figure>
+            <p class="dex-description">
+              A stationary stalked animal rooted into continental slopes. Its petal-like
+              feeding basket whirls plankton toward the mouth.
+            </p>
+            <ul class="dex-stats">
+              <li><span>Height</span><span>10 cm</span></li>
+              <li><span>Feeding fan</span><span>360° sweep</span></li>
+              <li><span>Colony density</span><span>Clustered</span></li>
+              <li><span>Anchoring</span><span>Flexible stem</span></li>
+            </ul>
+            <p class="dex-ability"><strong>Signature ability:</strong> Vortex Bloom &mdash; spins feeding petals to create a suction current.</p>
+            <ul class="dex-tags">
+              <li>Continental slope</li>
+              <li>Filter feeder</li>
+              <li>Medium</li>
+            </ul>
+          </div>
+        </article>
+      </div>
+      <p class="empty-state" hidden>No Cambrian creatures match those filters. Adjust the search to rediscover them.</p>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>Sources include the Burgess Shale and Chengjiang fossil beds research archives.</p>
+    <p>Illustrations courtesy of Wikimedia Commons contributors.</p>
+  </footer>
+
+  <script src="cambrian-pokedex.js"></script>
+</body>
+</html>
