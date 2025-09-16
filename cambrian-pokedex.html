@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cambrian Safari Field Guide</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="cambrian-pokedex.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="site-header__inner">
+      <div class="logo-cluster">
+        <span class="dex-label">Field Journal</span>
+        <h1 class="site-title">Cambrian Safari Field Guide</h1>
+      </div>
+      <nav class="site-nav">
+        <a href="index.html">Back to Portfolio</a>
+        <a class="nav-highlight" href="#dex">Creature Log</a>
+        <a href="#about">About the Era</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="intro" id="about">
+      <div class="intro__content">
+        <h2>Welcome, Expedition Leader!</h2>
+        <p>
+          Pack your field lenses and wade into Cambrian seas alive with experimental wildlife.
+          This safari log charts the explosion of early animal life (≈541&ndash;485 million years ago).
+          Use the filters to scout predators, grazers, and marvels from every habitat zone.
+        </p>
+      </div>
+      <div class="intro__metrics">
+        <div class="metric">
+          <span class="metric__label">Species logged</span>
+          <span class="metric__value">10</span>
+        </div>
+        <div class="metric">
+          <span class="metric__label">Habitats scouted</span>
+          <span class="metric__value">5</span>
+        </div>
+        <div class="metric">
+          <span class="metric__label">Apex hunters</span>
+          <span class="metric__value">3</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="controls" aria-label="Safari filters">
+      <div class="control-group">
+        <label for="dex-search">Search</label>
+        <input type="search" id="dex-search" placeholder="Name, adaptation, or trait" />
+      </div>
+      <div class="control-group">
+        <label for="diet-filter">Feeding style</label>
+        <select id="diet-filter">
+          <option value="all">All</option>
+          <option value="predator">Predator</option>
+          <option value="grazer">Grazer</option>
+          <option value="detritivore">Detritivore</option>
+          <option value="filter-feeder">Filter feeder</option>
+          <option value="omnivore">Omnivore</option>
+        </select>
+      </div>
+      <div class="control-group">
+        <label for="habitat-filter">Habitat zone</label>
+        <select id="habitat-filter">
+          <option value="all">All</option>
+          <option value="pelagic">Pelagic</option>
+          <option value="benthic">Benthic</option>
+          <option value="reef">Reef</option>
+          <option value="slope">Continental slope</option>
+          <option value="open-shelf">Open shelf</option>
+        </select>
+      </div>
+      <div class="control-group">
+        <label for="size-filter">Body size</label>
+        <select id="size-filter">
+          <option value="all">All</option>
+          <option value="large">Large (&gt;50 cm)</option>
+          <option value="medium">Medium (10&ndash;50 cm)</option>
+          <option value="small">Small (&lt;10 cm)</option>
+        </select>
+      </div>
+      <button class="control-reset" type="button" id="reset-filters">Reset filters</button>
+    </section>
+
+    <section class="pokedex" id="dex" aria-live="polite">
+      <div class="pokedex-grid">
+        <article class="dex-card" data-name="Anomalocaris" data-diet="predator" data-habitat="pelagic" data-size="large">
+          <div class="dex-card__header">
+            <div class="dex-heading">
+              <div class="dex-heading-top">
+                <span class="dex-number">#001</span>
+                <span class="dex-role">Apex Hunter</span>
+              </div>
+              <h2>Anomalocaris</h2>
+            </div>
+            <div class="dex-avatar" aria-hidden="true">
+              <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+                <rect width="64" height="64" rx="14" fill="#FDE5C9" />
+                <path d="M12 30c0-10 12-18 20-18s20 8 20 18-12 18-20 18S12 40 12 30Z" fill="#C46B3E" />
+                <path d="M20 30c0-6 6-11 12-11s12 5 12 11-6 11-12 11-12-5-12-11Z" fill="#F6D8B1" />
+                <path d="M19 38c4 6 10 10 13 10s9-4 13-10" stroke="#5E3B23" stroke-width="3" stroke-linecap="round" fill="none" />
+                <circle cx="23" cy="27" r="3" fill="#2F2A28" />
+                <circle cx="41" cy="27" r="3" fill="#2F2A28" />
+                <path d="M11 32c4 6 4 12 0 18" stroke="#C46B3E" stroke-width="3" stroke-linecap="round" fill="none" />
+                <path d="M53 32c-4 6-4 12 0 18" stroke="#C46B3E" stroke-width="3" stroke-linecap="round" fill="none" />
+              </svg>
+            </div>
+          </div>
+          <div class="dex-card__body">
+            <figure class="dex-portrait">
+              <img src="https://picsum.photos/seed/anomalocaris/200" alt="Illustrative portrait of Anomalocaris" loading="lazy" />
+            </figure>
+            <p class="dex-description">
+              The undisputed titan of Cambrian seas. Twin graspers snared prey before a
+              circular mouth shredded trilobites with pineapple-slice teeth.
+            </p>
+            <ul class="dex-stats">
+              <li><span>Length</span><span>Up to 1 m</span></li>
+              <li><span>Armor breach</span><span>High</span></li>
+              <li><span>Visual acuity</span><span>12k facets</span></li>
+              <li><span>Swim burst</span><span>22 km/h</span></li>
+            </ul>
+            <p class="dex-ability"><strong>Signature ability:</strong> Raptorial Sweep &mdash; lunges with barbed arms to immobilize prey.</p>
+            <ul class="dex-tags">
+              <li>Pelagic</li>
+              <li>Predator</li>
+              <li>Large</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="dex-card" data-name="Opabinia" data-diet="predator" data-habitat="benthic" data-size="small">
+          <div class="dex-card__header">
+            <div class="dex-heading">
+              <div class="dex-heading-top">
+                <span class="dex-number">#002</span>
+                <span class="dex-role">Tactile Forager</span>
+              </div>
+              <h2>Opabinia</h2>
+            </div>
+            <div class="dex-avatar" aria-hidden="true">
+              <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+                <rect width="64" height="64" rx="14" fill="#E3F3EA" />
+                <ellipse cx="37" cy="36" rx="18" ry="12" fill="#5AA995" />
+                <ellipse cx="35" cy="33" rx="13" ry="9" fill="#A0DCC2" />
+                <path d="M23 34c-6-4-12-2-12 3s6 9 12 9" stroke="#2F725B" stroke-width="3" stroke-linecap="round" fill="none" />
+                <path d="M15 24c3-4 9-6 13-4" stroke="#2F725B" stroke-width="3" stroke-linecap="round" fill="none" />
+                <path d="M52 38c-4 4-10 6-16 6" stroke="#2F725B" stroke-width="3" stroke-linecap="round" fill="none" />
+                <circle cx="29" cy="25" r="2.2" fill="#1F3E34" />
+                <circle cx="33" cy="23" r="2.4" fill="#1F3E34" />
+                <circle cx="37" cy="22" r="2.2" fill="#1F3E34" />
+                <circle cx="41" cy="23" r="2.2" fill="#1F3E34" />
+                <circle cx="45" cy="25" r="2" fill="#1F3E34" />
+              </svg>
+            </div>
+          </div>
+          <div class="dex-card__body">
+            <figure class="dex-portrait">
+              <img src="https://picsum.photos/seed/opabinia/200" alt="Illustrative portrait of Opabinia" loading="lazy" />
+            </figure>
+            <p class="dex-description">
+              Five independent eyes sweep the sea floor while a flexible proboscis vacuums
+              soft-bodied prey from burrows and crevices.
+            </p>
+            <ul class="dex-stats">
+              <li><span>Length</span><span>7 cm</span></li>
+              <li><span>Agility</span><span>Medium</span></li>
+              <li><span>Eye count</span><span>5</span></li>
+              <li><span>Grasper reach</span><span>15 cm</span></li>
+            </ul>
+            <p class="dex-ability"><strong>Signature ability:</strong> Periscope Grab &mdash; extends its trunk to snatch hidden morsels.</p>
+            <ul class="dex-tags">
+              <li>Benthic</li>
+              <li>Predator</li>
+              <li>Small</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="dex-card" data-name="Hallucigenia" data-diet="detritivore" data-habitat="benthic" data-size="small">
+          <div class="dex-card__header">
+            <div class="dex-heading">
+              <div class="dex-heading-top">
+                <span class="dex-number">#003</span>
+                <span class="dex-role">Spined Wanderer</span>
+              </div>
+              <h2>Hallucigenia</h2>
+            </div>
+            <div class="dex-avatar" aria-hidden="true">
+              <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+                <rect width="64" height="64" rx="14" fill="#F6E6FA" />
+                <path d="M18 42c2-10 8-20 14-20s12 10 14 20H18Z" fill="#D39BD7" stroke="#854487" stroke-width="2" stroke-linejoin="round" />
+                <path d="M20 40c2-7 7-12 12-12s10 5 12 12H20Z" fill="#F2D7F3" />
+                <path d="M22 32L18 20" stroke="#854487" stroke-width="3" stroke-linecap="round" />
+                <path d="M28 30L26 18" stroke="#854487" stroke-width="3" stroke-linecap="round" />
+                <path d="M34 30L34 18" stroke="#854487" stroke-width="3" stroke-linecap="round" />
+                <path d="M40 32L44 20" stroke="#854487" stroke-width="3" stroke-linecap="round" />
+                <path d="M24 42l-3 8" stroke="#854487" stroke-width="3" stroke-linecap="round" />
+                <path d="M30 42l-2 8" stroke="#854487" stroke-width="3" stroke-linecap="round" />
+                <path d="M36 42l2 8" stroke="#854487" stroke-width="3" stroke-linecap="round" />
+                <path d="M42 42l3 8" stroke="#854487" stroke-width="3" stroke-linecap="round" />
+              </svg>
+            </div>
+          </div>
+          <div class="dex-card__body">
+            <figure class="dex-portrait">
+              <img src="https://picsum.photos/seed/hallucigenia/200" alt="Illustrative portrait of Hallucigenia" loading="lazy" />
+            </figure>
+            <p class="dex-description">
+              A walking pincushion that tiptoes on soft claws while towering spines ward off
+              would-be attackers seeking an easy snack.
+            </p>
+            <ul class="dex-stats">
+              <li><span>Length</span><span>3.5 cm</span></li>
+              <li><span>Defense</span><span>Extreme</span></li>
+              <li><span>Speed</span><span>Slow</span></li>
+              <li><span>Stability</span><span>Eight limbs</span></li>
+            </ul>
+            <p class="dex-ability"><strong>Signature ability:</strong> Needle Shield &mdash; lashes outward spines to deter predators.</p>
+            <ul class="dex-tags">
+              <li>Benthic</li>
+              <li>Detritivore</li>
+              <li>Small</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="dex-card" data-name="Wiwaxia" data-diet="grazer" data-habitat="benthic" data-size="medium">
+          <div class="dex-card__header">
+            <div class="dex-heading">
+              <div class="dex-heading-top">
+                <span class="dex-number">#004</span>
+                <span class="dex-role">Armored Grazer</span>
+              </div>
+              <h2>Wiwaxia</h2>
+            </div>
+            <div class="dex-avatar" aria-hidden="true">
+              <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+                <rect width="64" height="64" rx="14" fill="#F4E9D8" />
+                <ellipse cx="32" cy="38" rx="18" ry="12" fill="#B68C4A" />
+                <ellipse cx="32" cy="35" rx="14" ry="9" fill="#E3C78B" />
+                <polygon points="16,30 10,18 22,24" fill="#8A6534" />
+                <polygon points="24,26 20,14 30,22" fill="#8A6534" />
+                <polygon points="40,26 34,14 44,22" fill="#8A6534" />
+                <polygon points="48,30 42,18 54,24" fill="#8A6534" />
+                <path d="M20 40l-6 6" stroke="#8A6534" stroke-width="3" stroke-linecap="round" />
+                <path d="M44 40l6 6" stroke="#8A6534" stroke-width="3" stroke-linecap="round" />
+                <path d="M24 46c4 2 8 2 12 0" stroke="#6B4A26" stroke-width="3" stroke-linecap="round" />
+              </svg>
+            </div>
+          </div>
+          <div class="dex-card__body">
+            <figure class="dex-portrait">
+              <img src="https://picsum.photos/seed/wiwaxia/200" alt="Illustrative portrait of Wiwaxia" loading="lazy" />
+            </figure>
+            <p class="dex-description">
+              Cloaked in overlapping scales and dagger-like spines, Wiwaxia scours microbial
+              mats with twin radulae while shrugging off attacks.
+            </p>
+            <ul class="dex-stats">
+              <li><span>Length</span><span>5 cm</span></li>
+              <li><span>Armor</span><span>Heavy plates</span></li>
+              <li><span>Feeding rate</span><span>High</span></li>
+              <li><span>Threat response</span><span>Spine flare</span></li>
+            </ul>
+            <p class="dex-ability"><strong>Signature ability:</strong> Scale Barricade &mdash; curls into a bristling orb of spines.</p>
+            <ul class="dex-tags">
+              <li>Benthic</li>
+              <li>Grazer</li>
+              <li>Medium</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="dex-card" data-name="Marrella" data-diet="filter-feeder" data-habitat="reef" data-size="small">
+          <div class="dex-card__header">
+            <div class="dex-heading">
+              <div class="dex-heading-top">
+                <span class="dex-number">#005</span>
+                <span class="dex-role">Lace Carapace</span>
+              </div>
+              <h2>Marrella</h2>
+            </div>
+            <div class="dex-avatar" aria-hidden="true">
+              <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+                <rect width="64" height="64" rx="14" fill="#E2F1F8" />
+                <path d="M18 44h28l-6-16H24l-6 16Z" fill="#3C6FA3" />
+                <path d="M22 36h20l4 8H18l4-8Z" fill="#6FA1C9" />
+                <path d="M24 28l-10-8" stroke="#3C6FA3" stroke-width="3" stroke-linecap="round" />
+                <path d="M40 28l10-8" stroke="#3C6FA3" stroke-width="3" stroke-linecap="round" />
+                <path d="M32 26c6 0 10-4 10-8" stroke="#3C6FA3" stroke-width="3" stroke-linecap="round" fill="none" />
+                <path d="M32 26c-6 0-10-4-10-8" stroke="#3C6FA3" stroke-width="3" stroke-linecap="round" fill="none" />
+                <circle cx="28" cy="32" r="2" fill="#172A3D" />
+                <circle cx="36" cy="32" r="2" fill="#172A3D" />
+              </svg>
+            </div>
+          </div>
+          <div class="dex-card__body">
+            <figure class="dex-portrait">
+              <img src="https://picsum.photos/seed/marrella/200" alt="Illustrative portrait of Marrella" loading="lazy" />
+            </figure>
+            <p class="dex-description">
+              A delicately spined arthropod that skims plankton from reef currents using
+              feathery limbs and antennae.
+            </p>
+            <ul class="dex-stats">
+              <li><span>Length</span><span>2.5 cm</span></li>
+              <li><span>Swarm behavior</span><span>High</span></li>
+              <li><span>Vision</span><span>Wide angle</span></li>
+              <li><span>Molting cycle</span><span>Frequent</span></li>
+            </ul>
+            <p class="dex-ability"><strong>Signature ability:</strong> Reef Drift &mdash; rides surge pulses to avoid predators.</p>
+            <ul class="dex-tags">
+              <li>Reef</li>
+              <li>Filter feeder</li>
+              <li>Small</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="dex-card" data-name="Pikaia" data-diet="filter-feeder" data-habitat="open-shelf" data-size="small">
+          <div class="dex-card__header">
+            <div class="dex-heading">
+              <div class="dex-heading-top">
+                <span class="dex-number">#006</span>
+                <span class="dex-role">Chordate Pioneer</span>
+              </div>
+              <h2>Pikaia</h2>
+            </div>
+            <div class="dex-avatar" aria-hidden="true">
+              <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+                <rect width="64" height="64" rx="14" fill="#E1F3F5" />
+                <path d="M12 40c4-14 12-22 20-22s16 8 20 22c-6 6-14 10-22 10S16 46 12 40Z" fill="#4D8F9C" />
+                <path d="M16 38c4-10 10-16 16-16s12 6 16 16c-4 4-10 8-16 8s-12-4-16-8Z" fill="#8CC3CB" />
+                <path d="M18 40c6 2 18 2 28-4" stroke="#2E5960" stroke-width="3" stroke-linecap="round" fill="none" />
+                <circle cx="22" cy="28" r="2" fill="#1A3C42" />
+              </svg>
+            </div>
+          </div>
+          <div class="dex-card__body">
+            <figure class="dex-portrait">
+              <img src="https://picsum.photos/seed/pikaia/200" alt="Illustrative portrait of Pikaia" loading="lazy" />
+            </figure>
+            <p class="dex-description">
+              One of the first chordates, sporting a notochord and muscle blocks that ripple
+              in coordinated waves for agile swimming.
+            </p>
+            <ul class="dex-stats">
+              <li><span>Length</span><span>5 cm</span></li>
+              <li><span>Locomotion</span><span>Lateral undulation</span></li>
+              <li><span>Respiration</span><span>Body surface</span></li>
+              <li><span>Resilience</span><span>Moderate</span></li>
+            </ul>
+            <p class="dex-ability"><strong>Signature ability:</strong> Notochord Dash &mdash; bursts forward with wave-like contractions.</p>
+            <ul class="dex-tags">
+              <li>Open shelf</li>
+              <li>Filter feeder</li>
+              <li>Small</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="dex-card" data-name="Olenoides" data-diet="detritivore" data-habitat="benthic" data-size="medium">
+          <div class="dex-card__header">
+            <div class="dex-heading">
+              <div class="dex-heading-top">
+                <span class="dex-number">#007</span>
+                <span class="dex-role">Trilobite Vanguard</span>
+              </div>
+              <h2>Olenoides</h2>
+            </div>
+            <div class="dex-avatar" aria-hidden="true">
+              <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+                <rect width="64" height="64" rx="14" fill="#F3EBDE" />
+                <path d="M24 18c0-4 8-8 8-8s8 4 8 8v28c0 8-6 12-8 12s-8-4-8-12V18Z" fill="#9B6136" />
+                <path d="M24 22h16" stroke="#C88B54" stroke-width="3" stroke-linecap="round" />
+                <path d="M24 28h16" stroke="#C88B54" stroke-width="3" stroke-linecap="round" />
+                <path d="M24 34h16" stroke="#C88B54" stroke-width="3" stroke-linecap="round" />
+                <path d="M24 40h16" stroke="#C88B54" stroke-width="3" stroke-linecap="round" />
+                <path d="M20 44l-6 6" stroke="#9B6136" stroke-width="3" stroke-linecap="round" />
+                <path d="M44 44l6 6" stroke="#9B6136" stroke-width="3" stroke-linecap="round" />
+                <circle cx="26" cy="24" r="2" fill="#402312" />
+                <circle cx="38" cy="24" r="2" fill="#402312" />
+              </svg>
+            </div>
+          </div>
+          <div class="dex-card__body">
+            <figure class="dex-portrait">
+              <img src="https://picsum.photos/seed/olenoides/200" alt="Illustrative portrait of Olenoides" loading="lazy" />
+            </figure>
+            <p class="dex-description">
+              A versatile trilobite that patrols sediment for carrion and scraps, rolling
+              into an armored pill when danger looms.
+            </p>
+            <ul class="dex-stats">
+              <li><span>Length</span><span>8&ndash;12 cm</span></li>
+              <li><span>Enrollment</span><span>Complete</span></li>
+              <li><span>Antennae</span><span>Highly sensitive</span></li>
+              <li><span>Spines</span><span>Posterior fan</span></li>
+            </ul>
+            <p class="dex-ability"><strong>Signature ability:</strong> Triloshield &mdash; locks into a tight defensive ball.</p>
+            <ul class="dex-tags">
+              <li>Benthic</li>
+              <li>Detritivore</li>
+              <li>Medium</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="dex-card" data-name="Waptia" data-diet="omnivore" data-habitat="pelagic" data-size="small">
+          <div class="dex-card__header">
+            <div class="dex-heading">
+              <div class="dex-heading-top">
+                <span class="dex-number">#008</span>
+                <span class="dex-role">Shrimp Sprinter</span>
+              </div>
+              <h2>Waptia</h2>
+            </div>
+            <div class="dex-avatar" aria-hidden="true">
+              <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+                <rect width="64" height="64" rx="14" fill="#E6F5EC" />
+                <path d="M18 38c4-12 16-18 28-14s10 14 2 20-22 8-30-6Z" fill="#5FA785" />
+                <path d="M22 36c4-8 14-12 22-10s10 10 2 14-18 6-24-4Z" fill="#9BD6B8" />
+                <path d="M18 30C12 22 12 16 16 12" stroke="#2F6A4C" stroke-width="3" stroke-linecap="round" fill="none" />
+                <path d="M22 40l-6 8" stroke="#2F6A4C" stroke-width="3" stroke-linecap="round" />
+                <path d="M28 42l-4 8" stroke="#2F6A4C" stroke-width="3" stroke-linecap="round" />
+                <path d="M34 42l-2 8" stroke="#2F6A4C" stroke-width="3" stroke-linecap="round" />
+                <path d="M40 40l2 8" stroke="#2F6A4C" stroke-width="3" stroke-linecap="round" />
+                <path d="M46 38l6 6-10 2" stroke="#2F6A4C" stroke-width="3" stroke-linecap="round" fill="none" />
+                <circle cx="24" cy="30" r="2" fill="#1C3A2B" />
+              </svg>
+            </div>
+          </div>
+          <div class="dex-card__body">
+            <figure class="dex-portrait">
+              <img src="https://picsum.photos/seed/waptia/200" alt="Illustrative portrait of Waptia" loading="lazy" />
+            </figure>
+            <p class="dex-description">
+              A nimble swimmer with fan-like appendages for quick propulsion and delicate
+              limbs for scooping plankton or scavenging.
+            </p>
+            <ul class="dex-stats">
+              <li><span>Length</span><span>4 cm</span></li>
+              <li><span>Brood care</span><span>Egg cluster</span></li>
+              <li><span>Speed</span><span>Fast bursts</span></li>
+              <li><span>Exoskeleton</span><span>Lightweight</span></li>
+            </ul>
+            <p class="dex-ability"><strong>Signature ability:</strong> Jet Flick &mdash; tail-flick launches it away from threats.</p>
+            <ul class="dex-tags">
+              <li>Pelagic</li>
+              <li>Omnivore</li>
+              <li>Small</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="dex-card" data-name="Nectocaris" data-diet="predator" data-habitat="pelagic" data-size="medium">
+          <div class="dex-card__header">
+            <div class="dex-heading">
+              <div class="dex-heading-top">
+                <span class="dex-number">#009</span>
+                <span class="dex-role">Cephalopod Cousin</span>
+              </div>
+              <h2>Nectocaris</h2>
+            </div>
+            <div class="dex-avatar" aria-hidden="true">
+              <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+                <rect width="64" height="64" rx="14" fill="#E4ECF8" />
+                <path d="M24 16c0-4 8-8 8-8s8 4 8 8v18c0 6-3 12-8 16-5-4-8-10-8-16V16Z" fill="#5B7CB8" />
+                <path d="M20 30c4-6 12-10 12-10s8 4 12 10" stroke="#2F4A82" stroke-width="3" stroke-linecap="round" fill="none" />
+                <path d="M20 32c-4 6-4 12 0 16" stroke="#2F4A82" stroke-width="3" stroke-linecap="round" fill="none" />
+                <path d="M44 32c4 6 4 12 0 16" stroke="#2F4A82" stroke-width="3" stroke-linecap="round" fill="none" />
+                <path d="M28 48c0 4 2 8 4 8s4-4 4-8" stroke="#2F4A82" stroke-width="3" stroke-linecap="round" fill="none" />
+                <circle cx="28" cy="24" r="2" fill="#16233D" />
+                <circle cx="36" cy="24" r="2" fill="#16233D" />
+              </svg>
+            </div>
+          </div>
+          <div class="dex-card__body">
+            <figure class="dex-portrait">
+              <img src="https://picsum.photos/seed/nectocaris/200" alt="Illustrative portrait of Nectocaris" loading="lazy" />
+            </figure>
+            <p class="dex-description">
+              A soft-bodied hunter with lateral fins and a siphon that hint at future
+              cephalopods. Twin tentacles snap up prey in open water.
+            </p>
+            <ul class="dex-stats">
+              <li><span>Length</span><span>10 cm</span></li>
+              <li><span>Propulsion</span><span>Jet siphon</span></li>
+              <li><span>Fins</span><span>Stabilizing</span></li>
+              <li><span>Prey capture</span><span>Grasping tentacles</span></li>
+            </ul>
+            <p class="dex-ability"><strong>Signature ability:</strong> Phantom Surge &mdash; pulsed jets let it pivot instantly.</p>
+            <ul class="dex-tags">
+              <li>Pelagic</li>
+              <li>Predator</li>
+              <li>Medium</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="dex-card" data-name="Dinomischus" data-diet="filter-feeder" data-habitat="slope" data-size="medium">
+          <div class="dex-card__header">
+            <div class="dex-heading">
+              <div class="dex-heading-top">
+                <span class="dex-number">#010</span>
+                <span class="dex-role">Anchored Cup</span>
+              </div>
+              <h2>Dinomischus</h2>
+            </div>
+            <div class="dex-avatar" aria-hidden="true">
+              <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+                <rect width="64" height="64" rx="14" fill="#F1F0E7" />
+                <ellipse cx="32" cy="24" rx="14" ry="10" fill="#D1B16D" />
+                <ellipse cx="32" cy="22" rx="12" ry="8" fill="#F5DFA8" />
+                <rect x="26" y="26" width="12" height="18" rx="6" fill="#B8914F" />
+                <path d="M18 24c6-6 22-6 28 0" stroke="#9B7B3E" stroke-width="3" stroke-linecap="round" fill="none" />
+                <rect x="30" y="44" width="4" height="12" fill="#6A5128" />
+                <path d="M24 56c2 4 12 4 16 0" stroke="#6A5128" stroke-width="3" stroke-linecap="round" fill="none" />
+              </svg>
+            </div>
+          </div>
+          <div class="dex-card__body">
+            <figure class="dex-portrait">
+              <img src="https://picsum.photos/seed/dinomischus/200" alt="Illustrative portrait of Dinomischus" loading="lazy" />
+            </figure>
+            <p class="dex-description">
+              A stationary stalked animal rooted into continental slopes. Its petal-like
+              feeding basket whirls plankton toward the mouth.
+            </p>
+            <ul class="dex-stats">
+              <li><span>Height</span><span>10 cm</span></li>
+              <li><span>Feeding fan</span><span>360° sweep</span></li>
+              <li><span>Colony density</span><span>Clustered</span></li>
+              <li><span>Anchoring</span><span>Flexible stem</span></li>
+            </ul>
+            <p class="dex-ability"><strong>Signature ability:</strong> Vortex Bloom &mdash; spins feeding petals to create a suction current.</p>
+            <ul class="dex-tags">
+              <li>Continental slope</li>
+              <li>Filter feeder</li>
+              <li>Medium</li>
+            </ul>
+          </div>
+        </article>
+      </div>
+      <p class="empty-state" hidden>No sightings match those filters. Adjust the search to rediscover them.</p>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>Sources include the Burgess Shale and Chengjiang fossil beds research archives.</p>
+    <p>Portrait placeholders via Picsum Photos; mini avatars illustrated especially for this guide.</p>
+  </footer>
+
+  <script src="cambrian-pokedex.js"></script>
+</body>
+</html>
