@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Game - Project Portfolio</title>
+	<script src="https://cdn.jsdelivr.net/npm/phaser@3.80.1/dist/phaser.min.js"></script>
+	<style>
+		body {
+			font-family: Arial, sans-serif;
+			margin: 0;
+			padding: 20px;
+			background: #1a1a2e;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			min-height: 100vh;
+		}
+		.back-link {
+			display: inline-block;
+			margin-bottom: 20px;
+			color: #4ecdc4;
+			text-decoration: none;
+			font-size: 1.1em;
+		}
+		.back-link:hover {
+			text-decoration: underline;
+		}
+		.game-container {
+			background: #16213e;
+			padding: 20px;
+			border-radius: 8px;
+			box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+		}
+		.game-info {
+			color: #eee;
+			text-align: center;
+			margin-bottom: 15px;
+		}
+		.game-info h1 {
+			margin: 0 0 10px 0;
+			color: #4ecdc4;
+		}
+		.controls {
+			color: #ccc;
+			font-size: 0.9em;
+			margin-top: 10px;
+		}
+		#phaser-game {
+			border: 3px solid #4ecdc4;
+			border-radius: 4px;
+		}
+	</style>
+</head>
+<body>
+	<a href="index.html" class="back-link">← Back to Portfolio</a>
+	<div class="game-container">
+		<div class="game-info">
+			<h1>Star Collector</h1>
+			<div class="controls">
+				Use <strong>Arrow Keys</strong> or <strong>WASD</strong> to move | Collect all stars to win!
+			</div>
+		</div>
+		<div id="phaser-game"></div>
+	</div>
+
+	<script>
+		const config = {
+			type: Phaser.AUTO,
+			width: 800,
+			height: 600,
+			parent: 'phaser-game',
+			physics: {
+				default: 'arcade',
+				arcade: {
+					gravity: { y: 300 },
+					debug: false
+				}
+			},
+			scene: {
+				preload: preload,
+				create: create,
+				update: update
+			}
+		};
+
+		const game = new Phaser.Game(config);
+		let player;
+		let stars;
+		let platforms;
+		let cursors;
+		let score = 0;
+		let scoreText;
+		let gameOver = false;
+
+		function preload() {
+			// Create simple colored rectangles as sprites
+			this.add.graphics()
+				.fillStyle(0x4ecdc4)
+				.fillRect(0, 0, 32, 32)
+				.generateTexture('player', 32, 32);
+			
+			this.add.graphics()
+				.fillStyle(0x8b4513)
+				.fillRect(0, 0, 400, 32)
+				.generateTexture('platform', 400, 32);
+			
+			this.add.graphics()
+				.fillStyle(0xffd700)
+				.fillCircle(16, 16, 16)
+				.generateTexture('star', 32, 32);
+		}
+
+		function create() {
+			// Create platforms
+			platforms = this.physics.add.staticGroup();
+			
+			// Ground
+			platforms.create(400, 568, 'platform').setScale(2, 1).refreshBody();
+			
+			// Floating platforms
+			platforms.create(600, 400, 'platform');
+			platforms.create(50, 250, 'platform');
+			platforms.create(750, 220, 'platform');
+			platforms.create(200, 150, 'platform');
+
+			// Create player
+			player = this.physics.add.sprite(100, 450, 'player');
+			player.setBounce(0.2);
+			player.setCollideWorldBounds(true);
+			player.setScale(1.5);
+
+			// Player physics
+			this.physics.add.collider(player, platforms);
+
+			// Create stars
+			stars = this.physics.add.group({
+				key: 'star',
+				repeat: 11,
+				setXY: { x: 12, y: 0, stepX: 70 }
+			});
+
+			stars.children.entries.forEach((child) => {
+				child.setBounceY(Phaser.Math.FloatBetween(0.4, 0.8));
+				child.setScale(0.8);
+			});
+
+			this.physics.add.collider(stars, platforms);
+			this.physics.add.overlap(player, stars, collectStar, null, this);
+
+			// Input
+			cursors = this.input.keyboard.createCursorKeys();
+			const wasd = this.input.keyboard.addKeys('W,S,A,D');
+
+			// Score text
+			scoreText = this.add.text(16, 16, 'Score: 0', {
+				fontSize: '32px',
+				fill: '#fff'
+			});
+
+			// Store wasd keys for update function
+			this.wasd = wasd;
+		}
+
+		function update() {
+			if (gameOver) {
+				return;
+			}
+
+			// Movement controls (Arrow keys + WASD)
+			const leftKey = cursors.left.isDown || this.wasd.A.isDown;
+			const rightKey = cursors.right.isDown || this.wasd.D.isDown;
+			const upKey = cursors.up.isDown || this.wasd.W.isDown;
+
+			if (leftKey) {
+				player.setVelocityX(-160);
+			} else if (rightKey) {
+				player.setVelocityX(160);
+			} else {
+				player.setVelocityX(0);
+			}
+
+			if (upKey && player.body.touching.down) {
+				player.setVelocityY(-330);
+			}
+		}
+
+		function collectStar(player, star) {
+			star.disableBody(true, true);
+			score += 10;
+			scoreText.setText('Score: ' + score);
+
+			// Check if all stars collected
+			if (stars.countActive(true) === 0) {
+				stars.children.entries.forEach((child) => {
+					child.enableBody(true, child.x, 0, true, true);
+				});
+
+				// Move player to start position
+				player.x = 100;
+				player.y = 450;
+
+				// Show win message
+				const winText = this.add.text(400, 300, 'Level Complete!\nPress R to restart', {
+					fontSize: '48px',
+					fill: '#4ecdc4',
+					align: 'center'
+				});
+				winText.setOrigin(0.5);
+				winText.setStroke('#000', 4);
+
+				// Restart on R key
+				this.input.keyboard.once('keydown-R', () => {
+					score = 0;
+					scoreText.setText('Score: 0');
+					winText.destroy();
+					stars.children.entries.forEach((child) => {
+						child.enableBody(true, child.x, 0, true, true);
+					});
+				});
+			}
+		}
+	</script>
+</body>
+</html>
