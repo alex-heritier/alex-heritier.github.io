@@ -3,53 +3,73 @@
 <head>
 	<meta charset="UTF-8" />
 	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<title>Game - Project Portfolio</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+	<title>Orbital Explorer - Project Portfolio</title>
 	<script src="https://cdn.jsdelivr.net/npm/phaser@3.80.1/dist/phaser.min.js"></script>
 	<style>
 		body {
-			font-family: Arial, sans-serif;
+			font-family: 'Courier New', monospace;
 			margin: 0;
-			padding: 20px;
-			background: #1a1a2e;
+			padding: 10px;
+			background: #000000;
 			display: flex;
 			flex-direction: column;
 			align-items: center;
 			min-height: 100vh;
+			overflow-x: hidden;
 		}
 		.back-link {
 			display: inline-block;
-			margin-bottom: 20px;
-			color: #4ecdc4;
+			margin-bottom: 10px;
+			color: #00ff88;
 			text-decoration: none;
-			font-size: 1.1em;
+			font-size: 1em;
 		}
 		.back-link:hover {
 			text-decoration: underline;
 		}
 		.game-container {
-			background: #16213e;
-			padding: 20px;
+			background: #0a0a1a;
+			padding: 10px;
 			border-radius: 8px;
-			box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+			box-shadow: 0 0 30px rgba(0,255,136,0.3);
+			max-width: 100%;
 		}
 		.game-info {
-			color: #eee;
+			color: #00ff88;
 			text-align: center;
-			margin-bottom: 15px;
+			margin-bottom: 10px;
 		}
 		.game-info h1 {
-			margin: 0 0 10px 0;
-			color: #4ecdc4;
+			margin: 0 0 5px 0;
+			color: #00ff88;
+			font-size: 1.5em;
 		}
 		.controls {
-			color: #ccc;
-			font-size: 0.9em;
-			margin-top: 10px;
+			color: #88ffaa;
+			font-size: 0.8em;
+			margin-top: 5px;
+			line-height: 1.4;
 		}
 		#phaser-game {
-			border: 3px solid #4ecdc4;
+			border: 2px solid #00ff88;
 			border-radius: 4px;
+			display: block;
+			margin: 0 auto;
+		}
+		@media (max-width: 768px) {
+			body {
+				padding: 5px;
+			}
+			.game-container {
+				padding: 5px;
+			}
+			.game-info h1 {
+				font-size: 1.2em;
+			}
+			.controls {
+				font-size: 0.7em;
+			}
 		}
 	</style>
 </head>
@@ -57,24 +77,29 @@
 	<a href="index.html" class="back-link">← Back to Portfolio</a>
 	<div class="game-container">
 		<div class="game-info">
-			<h1>Star Collector</h1>
+			<h1>🚀 ORBITAL EXPLORER</h1>
 			<div class="controls">
-				Use <strong>Arrow Keys</strong> or <strong>WASD</strong> to move | Collect all stars to win!
+				<strong>Desktop:</strong> WASD/Arrows = Thrust | SPACE = Land<br>
+				<strong>Mobile:</strong> Touch on-screen buttons
 			</div>
 		</div>
 		<div id="phaser-game"></div>
 	</div>
 
 	<script>
+		// Responsive canvas size
+		const canvasWidth = Math.min(800, window.innerWidth - 30);
+		const canvasHeight = Math.min(600, window.innerHeight - 200);
+
 		const config = {
 			type: Phaser.AUTO,
-			width: 800,
-			height: 600,
+			width: canvasWidth,
+			height: canvasHeight,
 			parent: 'phaser-game',
 			physics: {
 				default: 'arcade',
 				arcade: {
-					gravity: { y: 300 },
+					gravity: { y: 0 },
 					debug: false
 				}
 			},
@@ -82,144 +107,388 @@
 				preload: preload,
 				create: create,
 				update: update
+			},
+			scale: {
+				mode: Phaser.Scale.FIT,
+				autoCenter: Phaser.Scale.CENTER_BOTH
 			}
 		};
 
 		const game = new Phaser.Game(config);
-		let player;
+
+		// Game state
+		let spacecraft;
+		let sun;
+		let planets = [];
 		let stars;
-		let platforms;
 		let cursors;
+		let wasdKeys;
+		let spaceKey;
 		let score = 0;
 		let scoreText;
-		let gameOver = false;
+		let infoText;
+		let fuelText;
+		let fuel = 100;
+		let planetsExplored = 0;
+		let currentOrbit = 1;
+
+		// Touch controls for mobile
+		let touchControls = {
+			upBtn: null,
+			downBtn: null,
+			leftBtn: null,
+			rightBtn: null,
+			landBtn: null,
+			up: false,
+			down: false,
+			left: false,
+			right: false,
+			land: false
+		};
+
+		// Planet data
+		const planetData = [
+			{ name: "Mercury", color: 0x8C7853, radius: 80, size: 8, speed: 0.02, explored: false },
+			{ name: "Venus", color: 0xFFC649, radius: 130, size: 12, speed: 0.015, explored: false },
+			{ name: "Earth", color: 0x4169E1, radius: 180, size: 14, speed: 0.012, explored: false },
+			{ name: "Mars", color: 0xCD5C5C, radius: 230, size: 10, speed: 0.009, explored: false },
+			{ name: "Jupiter", color: 0xDAA520, radius: 300, size: 24, speed: 0.006, explored: false }
+		];
 
 		function preload() {
-			// Create simple colored rectangles as sprites
+			// Create spacecraft texture
 			this.add.graphics()
-				.fillStyle(0x4ecdc4)
-				.fillRect(0, 0, 32, 32)
-				.generateTexture('player', 32, 32);
-			
+				.fillStyle(0xFFFFFF)
+				.fillTriangle(8, 0, 0, 16, 16, 16)
+				.generateTexture('spacecraft', 16, 16);
+
+			// Create sun texture
 			this.add.graphics()
-				.fillStyle(0x8b4513)
-				.fillRect(0, 0, 400, 32)
-				.generateTexture('platform', 400, 32);
-			
+				.fillStyle(0xFFFF00)
+				.fillCircle(20, 20, 20)
+				.generateTexture('sun', 40, 40);
+
+			// Create star texture
 			this.add.graphics()
-				.fillStyle(0xffd700)
-				.fillCircle(16, 16, 16)
-				.generateTexture('star', 32, 32);
+				.fillStyle(0xFFFFFF)
+				.fillCircle(1, 1, 1)
+				.generateTexture('star', 2, 2);
+
+			// Create button texture
+			this.add.graphics()
+				.fillStyle(0x00ff88, 0.3)
+				.fillRoundedRect(0, 0, 50, 50, 8)
+				.lineStyle(2, 0x00ff88)
+				.strokeRoundedRect(0, 0, 50, 50, 8)
+				.generateTexture('button', 50, 50);
 		}
 
 		function create() {
-			// Create platforms
-			platforms = this.physics.add.staticGroup();
-			
-			// Ground
-			platforms.create(400, 568, 'platform').setScale(2, 1).refreshBody();
-			
-			// Floating platforms
-			platforms.create(600, 400, 'platform');
-			platforms.create(50, 250, 'platform');
-			platforms.create(750, 220, 'platform');
-			platforms.create(200, 150, 'platform');
+			const centerX = this.cameras.main.centerX;
+			const centerY = this.cameras.main.centerY;
 
-			// Create player
-			player = this.physics.add.sprite(100, 450, 'player');
-			player.setBounce(0.2);
-			player.setCollideWorldBounds(true);
-			player.setScale(1.5);
+			// Create starfield background
+			stars = this.add.group();
+			for (let i = 0; i < 200; i++) {
+				const x = Phaser.Math.Between(0, canvasWidth);
+				const y = Phaser.Math.Between(0, canvasHeight);
+				const star = this.add.sprite(x, y, 'star').setAlpha(Phaser.Math.FloatBetween(0.3, 1));
+				stars.add(star);
+			}
 
-			// Player physics
-			this.physics.add.collider(player, platforms);
+			// Create sun
+			sun = this.add.sprite(centerX, centerY, 'sun');
+			sun.setScale(1.5);
 
-			// Create stars
-			stars = this.physics.add.group({
-				key: 'star',
-				repeat: 11,
-				setXY: { x: 12, y: 0, stepX: 70 }
+			// Draw orbit paths
+			const graphics = this.add.graphics();
+			graphics.lineStyle(1, 0x00ff88, 0.3);
+			planetData.forEach(data => {
+				graphics.strokeCircle(centerX, centerY, data.radius);
 			});
 
-			stars.children.entries.forEach((child) => {
-				child.setBounceY(Phaser.Math.FloatBetween(0.4, 0.8));
-				child.setScale(0.8);
+			// Create planets
+			planetData.forEach((data, index) => {
+				const planet = this.add.circle(0, 0, data.size, data.color);
+				planet.angle = Math.random() * 360;
+				planet.orbitRadius = data.radius;
+				planet.orbitSpeed = data.speed;
+				planet.planetName = data.name;
+				planet.explored = false;
+				planet.index = index;
+				planets.push(planet);
 			});
 
-			this.physics.add.collider(stars, platforms);
-			this.physics.add.overlap(player, stars, collectStar, null, this);
+			// Create spacecraft
+			const startPlanet = planets[1]; // Start near Venus
+			const startAngle = startPlanet.angle * Math.PI / 180;
+			const startX = centerX + Math.cos(startAngle) * startPlanet.orbitRadius;
+			const startY = centerY + Math.sin(startAngle) * startPlanet.orbitRadius;
+
+			spacecraft = this.physics.add.sprite(startX, startY, 'spacecraft');
+			spacecraft.setScale(1.5);
+			spacecraft.setDamping(true);
+			spacecraft.setDrag(0.99);
+			spacecraft.angle = 90;
 
 			// Input
 			cursors = this.input.keyboard.createCursorKeys();
-			const wasd = this.input.keyboard.addKeys('W,S,A,D');
+			wasdKeys = this.input.keyboard.addKeys('W,S,A,D');
+			spaceKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
 
-			// Score text
-			scoreText = this.add.text(16, 16, 'Score: 0', {
-				fontSize: '32px',
-				fill: '#fff'
+			// UI Text
+			scoreText = this.add.text(16, 16, 'Planets: 0/5', {
+				fontSize: '18px',
+				fill: '#00ff88',
+				fontFamily: 'Courier New'
 			});
 
-			// Store wasd keys for update function
-			this.wasd = wasd;
+			fuelText = this.add.text(16, 40, 'Fuel: 100%', {
+				fontSize: '18px',
+				fill: '#00ff88',
+				fontFamily: 'Courier New'
+			});
+
+			infoText = this.add.text(centerX, 16, '', {
+				fontSize: '16px',
+				fill: '#ffff00',
+				fontFamily: 'Courier New'
+			}).setOrigin(0.5, 0);
+
+			// Mobile touch controls
+			if (this.sys.game.device.os.android || this.sys.game.device.os.iOS ||
+			    this.sys.game.device.os.iPad || this.sys.game.device.os.iPhone ||
+				'ontouchstart' in window) {
+				createTouchControls(this);
+			}
+		}
+
+		function createTouchControls(scene) {
+			const buttonSize = 50;
+			const margin = 20;
+			const centerY = canvasHeight - buttonSize - margin;
+
+			// Left button
+			touchControls.leftBtn = scene.add.sprite(margin + buttonSize * 0.5, centerY, 'button')
+				.setInteractive()
+				.setScrollFactor(0)
+				.setAlpha(0.5);
+			scene.add.text(margin + buttonSize * 0.5, centerY, '←', {
+				fontSize: '24px',
+				fill: '#00ff88'
+			}).setOrigin(0.5).setScrollFactor(0);
+
+			// Right button
+			touchControls.rightBtn = scene.add.sprite(margin + buttonSize * 1.8, centerY, 'button')
+				.setInteractive()
+				.setScrollFactor(0)
+				.setAlpha(0.5);
+			scene.add.text(margin + buttonSize * 1.8, centerY, '→', {
+				fontSize: '24px',
+				fill: '#00ff88'
+			}).setOrigin(0.5).setScrollFactor(0);
+
+			// Up button
+			touchControls.upBtn = scene.add.sprite(canvasWidth - margin - buttonSize * 2.3, centerY - buttonSize * 0.8, 'button')
+				.setInteractive()
+				.setScrollFactor(0)
+				.setAlpha(0.5);
+			scene.add.text(canvasWidth - margin - buttonSize * 2.3, centerY - buttonSize * 0.8, '↑', {
+				fontSize: '24px',
+				fill: '#00ff88'
+			}).setOrigin(0.5).setScrollFactor(0);
+
+			// Down button
+			touchControls.downBtn = scene.add.sprite(canvasWidth - margin - buttonSize * 2.3, centerY, 'button')
+				.setInteractive()
+				.setScrollFactor(0)
+				.setAlpha(0.5);
+			scene.add.text(canvasWidth - margin - buttonSize * 2.3, centerY, '↓', {
+				fontSize: '24px',
+				fill: '#00ff88'
+			}).setOrigin(0.5).setScrollFactor(0);
+
+			// Land button
+			touchControls.landBtn = scene.add.sprite(canvasWidth - margin - buttonSize * 0.5, centerY, 'button')
+				.setInteractive()
+				.setScrollFactor(0)
+				.setAlpha(0.5);
+			scene.add.text(canvasWidth - margin - buttonSize * 0.5, centerY, 'LAND', {
+				fontSize: '12px',
+				fill: '#00ff88'
+			}).setOrigin(0.5).setScrollFactor(0);
+
+			// Touch events
+			touchControls.upBtn.on('pointerdown', () => { touchControls.up = true; touchControls.upBtn.setAlpha(0.9); });
+			touchControls.upBtn.on('pointerup', () => { touchControls.up = false; touchControls.upBtn.setAlpha(0.5); });
+			touchControls.upBtn.on('pointerout', () => { touchControls.up = false; touchControls.upBtn.setAlpha(0.5); });
+
+			touchControls.downBtn.on('pointerdown', () => { touchControls.down = true; touchControls.downBtn.setAlpha(0.9); });
+			touchControls.downBtn.on('pointerup', () => { touchControls.down = false; touchControls.downBtn.setAlpha(0.5); });
+			touchControls.downBtn.on('pointerout', () => { touchControls.down = false; touchControls.downBtn.setAlpha(0.5); });
+
+			touchControls.leftBtn.on('pointerdown', () => { touchControls.left = true; touchControls.leftBtn.setAlpha(0.9); });
+			touchControls.leftBtn.on('pointerup', () => { touchControls.left = false; touchControls.leftBtn.setAlpha(0.5); });
+			touchControls.leftBtn.on('pointerout', () => { touchControls.left = false; touchControls.leftBtn.setAlpha(0.5); });
+
+			touchControls.rightBtn.on('pointerdown', () => { touchControls.right = true; touchControls.rightBtn.setAlpha(0.9); });
+			touchControls.rightBtn.on('pointerup', () => { touchControls.right = false; touchControls.rightBtn.setAlpha(0.5); });
+			touchControls.rightBtn.on('pointerout', () => { touchControls.right = false; touchControls.rightBtn.setAlpha(0.5); });
+
+			touchControls.landBtn.on('pointerdown', () => {
+				touchControls.land = true;
+				touchControls.landBtn.setAlpha(0.9);
+				setTimeout(() => {
+					touchControls.land = false;
+					touchControls.landBtn.setAlpha(0.5);
+				}, 200);
+			});
 		}
 
 		function update() {
-			if (gameOver) {
-				return;
-			}
+			const centerX = this.cameras.main.centerX;
+			const centerY = this.cameras.main.centerY;
 
-			// Movement controls (Arrow keys + WASD)
-			const leftKey = cursors.left.isDown || this.wasd.A.isDown;
-			const rightKey = cursors.right.isDown || this.wasd.D.isDown;
-			const upKey = cursors.up.isDown || this.wasd.W.isDown;
+			// Update planet positions
+			planets.forEach(planet => {
+				planet.angle += planet.orbitSpeed;
+				const radians = planet.angle * Math.PI / 180;
+				planet.x = centerX + Math.cos(radians) * planet.orbitRadius;
+				planet.y = centerY + Math.sin(radians) * planet.orbitRadius;
+			});
 
-			if (leftKey) {
-				player.setVelocityX(-160);
-			} else if (rightKey) {
-				player.setVelocityX(160);
+			// Spacecraft controls
+			const thrustPower = 0.3;
+			let thrusting = false;
+
+			const upPressed = cursors.up.isDown || wasdKeys.W.isDown || touchControls.up;
+			const downPressed = cursors.down.isDown || wasdKeys.S.isDown || touchControls.down;
+			const leftPressed = cursors.left.isDown || wasdKeys.A.isDown || touchControls.left;
+			const rightPressed = cursors.right.isDown || wasdKeys.D.isDown || touchControls.right;
+			const landPressed = Phaser.Input.Keyboard.JustDown(spaceKey) || touchControls.land;
+
+			if (fuel > 0) {
+				if (upPressed) {
+					const angle = (spacecraft.angle - 90) * Math.PI / 180;
+					spacecraft.setAcceleration(Math.cos(angle) * 100, Math.sin(angle) * 100);
+					thrusting = true;
+					fuel -= 0.1;
+				} else if (downPressed) {
+					const angle = (spacecraft.angle - 90) * Math.PI / 180;
+					spacecraft.setAcceleration(-Math.cos(angle) * 100, -Math.sin(angle) * 100);
+					thrusting = true;
+					fuel -= 0.1;
+				} else {
+					spacecraft.setAcceleration(0, 0);
+				}
+
+				if (leftPressed) {
+					spacecraft.angle -= 3;
+				}
+				if (rightPressed) {
+					spacecraft.angle += 3;
+				}
 			} else {
-				player.setVelocityX(0);
+				spacecraft.setAcceleration(0, 0);
 			}
 
-			if (upKey && player.body.touching.down) {
-				player.setVelocityY(-330);
+			// Apply orbital gravity (simplified)
+			const dx = centerX - spacecraft.x;
+			const dy = centerY - spacecraft.y;
+			const distance = Math.sqrt(dx * dx + dy * dy);
+			const gravityStrength = 5000;
+			const gravityX = (dx / distance) * (gravityStrength / (distance * distance));
+			const gravityY = (dy / distance) * (gravityStrength / (distance * distance));
+
+			spacecraft.setVelocity(
+				spacecraft.body.velocity.x + gravityX,
+				spacecraft.body.velocity.y + gravityY
+			);
+
+			// Check for planet proximity and landing
+			let nearPlanet = null;
+			let minDistance = Infinity;
+
+			planets.forEach(planet => {
+				const dist = Phaser.Math.Distance.Between(spacecraft.x, spacecraft.y, planet.x, planet.y);
+				if (dist < 40 && dist < minDistance) {
+					nearPlanet = planet;
+					minDistance = dist;
+				}
+			});
+
+			if (nearPlanet) {
+				infoText.setText(`Near ${nearPlanet.planetName} - Press SPACE/LAND to explore`);
+				if (landPressed && !nearPlanet.explored) {
+					nearPlanet.explored = true;
+					planetsExplored++;
+					score += 100;
+					fuel = Math.min(100, fuel + 30); // Refuel on landing
+					scoreText.setText(`Planets: ${planetsExplored}/5`);
+
+					// Visual feedback
+					this.tweens.add({
+						targets: nearPlanet,
+						scaleX: 1.5,
+						scaleY: 1.5,
+						duration: 200,
+						yoyo: true
+					});
+
+					infoText.setText(`${nearPlanet.planetName} explored! +100 points, +30 fuel`);
+					this.time.delayedCall(2000, () => {
+						if (infoText.text.includes('explored')) {
+							infoText.setText('');
+						}
+					});
+
+					// Check win condition
+					if (planetsExplored === 5) {
+						const winText = this.add.text(centerX, centerY,
+							'MISSION COMPLETE!\nAll planets explored!\nPress R to restart', {
+							fontSize: '32px',
+							fill: '#00ff88',
+							align: 'center',
+							fontFamily: 'Courier New'
+						}).setOrigin(0.5).setStroke('#000', 6);
+
+						this.input.keyboard.once('keydown-R', () => {
+							this.scene.restart();
+							resetGame();
+						});
+					}
+				}
+			} else {
+				if (infoText.text.includes('Near') || infoText.text === '') {
+					infoText.setText('Use thrust to transfer orbits');
+				}
+			}
+
+			// Update fuel display
+			fuelText.setText(`Fuel: ${Math.max(0, Math.floor(fuel))}%`);
+			if (fuel <= 20) {
+				fuelText.setColor('#ff0000');
+			} else {
+				fuelText.setColor('#00ff88');
+			}
+
+			// Keep spacecraft in bounds (but allow some freedom)
+			const maxDistance = Math.max(canvasWidth, canvasHeight) * 0.6;
+			const spacecraftDist = Phaser.Math.Distance.Between(centerX, centerY, spacecraft.x, spacecraft.y);
+			if (spacecraftDist > maxDistance) {
+				const angle = Math.atan2(spacecraft.y - centerY, spacecraft.x - centerX);
+				spacecraft.x = centerX + Math.cos(angle) * maxDistance;
+				spacecraft.y = centerY + Math.sin(angle) * maxDistance;
 			}
 		}
 
-		function collectStar(player, star) {
-			star.disableBody(true, true);
-			score += 10;
-			scoreText.setText('Score: ' + score);
-
-			// Check if all stars collected
-			if (stars.countActive(true) === 0) {
-				stars.children.entries.forEach((child) => {
-					child.enableBody(true, child.x, 0, true, true);
-				});
-
-				// Move player to start position
-				player.x = 100;
-				player.y = 450;
-
-				// Show win message
-				const winText = this.add.text(400, 300, 'Level Complete!\nPress R to restart', {
-					fontSize: '48px',
-					fill: '#4ecdc4',
-					align: 'center'
-				});
-				winText.setOrigin(0.5);
-				winText.setStroke('#000', 4);
-
-				// Restart on R key
-				this.input.keyboard.once('keydown-R', () => {
-					score = 0;
-					scoreText.setText('Score: 0');
-					winText.destroy();
-					stars.children.entries.forEach((child) => {
-						child.enableBody(true, child.x, 0, true, true);
-					});
-				});
-			}
+		function resetGame() {
+			score = 0;
+			fuel = 100;
+			planetsExplored = 0;
+			planets.forEach(planet => {
+				planet.explored = false;
+			});
 		}
 	</script>
 </body>
